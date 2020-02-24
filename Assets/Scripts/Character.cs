@@ -36,6 +36,8 @@ namespace Librarian
         private bool _CanEvaluate = true;
         private Coroutine _EvaluateCooldownCoroutine;
 
+        public Vector3 TargetPosition;
+
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
 
@@ -87,12 +89,12 @@ namespace Librarian
             feelingReaction.Induce(this);
         }
 
-        public void StartBehavior(State behavior)
+        public void InduceStateBehavior(State behavior)
         {
             StateBehavior behaviorAction = _StateBehaviors[(int)behavior];
             if (behaviorAction == null) return;
 
-            behaviorAction.Start();
+            behaviorAction.Induce();
         }
 
         private void OnDestroy()

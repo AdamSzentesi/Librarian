@@ -10,7 +10,8 @@ namespace Librarian
 
             Debug.Log("STARTED: FeelingReactionBoredom");
 
-            Vector3 targetPosition = Level.GetNearestInteractablePosition(character.transform.position);
+            
+            character.InduceStateBehavior(State.Walk);
 
             return true;
         }

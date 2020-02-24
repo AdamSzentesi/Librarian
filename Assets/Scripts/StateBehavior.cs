@@ -6,15 +6,15 @@ namespace Librarian
     {
         public bool IsRunning { get; protected set; } = false;
 
-        protected abstract bool StartInternal();
+        protected abstract bool InduceInternal();
 
         public abstract void Stop();
 
-        public bool Start()
+        public bool Induce()
         {
             if(IsRunning) return false;
 
-            return StartInternal();
+            return InduceInternal();
         }
 
     }
