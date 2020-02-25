@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace Librarian
+﻿namespace Librarian
 {
-    public class Billboard : MonoBehaviour
+    public class Billboard : Item
     {
         private void Start()
         {
