@@ -59,6 +59,17 @@ namespace Librarian
 
             // TODO: feeling buffs
 
+
+
+            float boredom = _FeelingManager.GetFeeling(Feeling.Boredom);
+            float fear = _FeelingManager.GetFeeling(Feeling.Fear);
+            float tiredness = _FeelingManager.GetFeeling(Feeling.Tiredness);
+
+            Stats.text = "B: " + boredom + "\nF: " + fear + "\nT: " + tiredness;
+        }
+
+        private void EvaluateFeelings()
+        {
             if (_CanEvaluate)
             {
                 _CanEvaluate = false;
@@ -71,12 +82,6 @@ namespace Librarian
 
                 _EvaluateCooldownCoroutine = StartCoroutine(EvaluateCooldown());
             }
-
-            float boredom = _FeelingManager.GetFeeling(Feeling.Boredom);
-            float fear = _FeelingManager.GetFeeling(Feeling.Fear);
-            float tiredness = _FeelingManager.GetFeeling(Feeling.Tiredness);
-
-            Stats.text = "B: " + boredom + "\nF: " + fear + "\nT: " + tiredness;
         }
 
         private void React(Feeling feeling)
