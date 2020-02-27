@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Librarian
+﻿namespace Librarian
 {
     public class Interactable : Obstacle
     {
@@ -10,7 +6,7 @@ namespace Librarian
 
         private int _RegisteredIndex = -1;
 
-        private void Awake()
+        protected void Awake()
         {
             _RegisteredIndex = Level.RegisterInteractable(this);
         }

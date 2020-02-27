@@ -1,6 +1,6 @@
 ﻿namespace Librarian
 {
-    public class Storable : Item
+    public class Storable : SceneItem
     {
         
     }

@@ -1,9 +1,11 @@
 ﻿namespace Librarian
 {
-    public class Billboard : Item
+    public class Billboard : SceneItem
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             transform.rotation = Level.CameraRotation;
             Init();
         }

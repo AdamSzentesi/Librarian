@@ -6,14 +6,6 @@ namespace Librarian
     {
         public Collider Collider;
 
-        private void Awake()
-        {
-            if (!Collider)
-            {
-                Debug.LogError("Obstacle: I have no collider!");
-            }
-        }
-
 
     }
 }
