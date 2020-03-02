@@ -12,7 +12,7 @@ namespace Librarian
         Sit,
     }
 
-    public class Character : Billboard
+    public class Character : SceneItem
     {
         public SceneItem DebugItem;
 
@@ -43,8 +43,10 @@ namespace Librarian
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
 
-        protected override void Init()
+        protected override void Start()
         {
+            base.Start();
+
             _StateBehaviors[(int)State.Idle] = IdleBehavior;
             _StateBehaviors[(int)State.Walk] = WalkBehavior;
             _StateBehaviors[(int)State.Run] = RunBehavior;

@@ -6,7 +6,7 @@ namespace Librarian
     public class Level : MonoBehaviour
     {
         private static Level _Instance;
-        public List<Interactable> _Interactables = new List<Interactable>();
+        public List<SceneItem> _SceneItems = new List<SceneItem>();
 
         public Transform CameraBase;
 
@@ -51,38 +51,38 @@ namespace Librarian
             }
         }
 
-        public static int RegisterInteractable(Interactable interactable)
+        public static int RegisterInteractable(SceneItem interactable)
         {
             if (!interactable) return -1;
 
-            int result = _Instance._Interactables.Count;
-            _Instance._Interactables.Add(interactable);
+            int result = _Instance._SceneItems.Count;
+            _Instance._SceneItems.Add(interactable);
 
             return result;
         }
 
         public static void UnregisterInteractable(int index)
         {
-            if (index < 0 || index >= _Instance._Interactables.Count) return;
+            if (index < 0 || index >= _Instance._SceneItems.Count) return;
 
-            _Instance._Interactables.RemoveAt(index);
+            _Instance._SceneItems.RemoveAt(index);
         }
 
         public static Vector3 GetNearestInteractablePosition(Vector3 characterPosition)
         {
-            if (_Instance._Interactables.Count == 0) return characterPosition;
+            if (_Instance._SceneItems.Count == 0) return characterPosition;
 
-            Vector3 closestPosition = _Instance._Interactables[0].transform.position;
-            if (_Instance._Interactables.Count == 1) return closestPosition;
+            Vector3 closestPosition = _Instance._SceneItems[0].transform.position;
+            if (_Instance._SceneItems.Count == 1) return closestPosition;
 
             float closestDistanceSquared = (characterPosition - closestPosition).sqrMagnitude;
-            foreach (Interactable interactable in _Instance._Interactables)
+            foreach (SceneItem sceneItem in _Instance._SceneItems)
             {
-                float currentDistanceSquared = (characterPosition - interactable.transform.position).sqrMagnitude;
+                float currentDistanceSquared = (characterPosition - sceneItem.transform.position).sqrMagnitude;
                 if (currentDistanceSquared < closestDistanceSquared)
                 {
                     closestDistanceSquared = currentDistanceSquared;
-                    closestPosition = interactable.transform.position;
+                    closestPosition = sceneItem.transform.position;
                 }
             }
 
