@@ -9,7 +9,7 @@ namespace Librarian
         private Item _Item;
 
         [SerializeField, HideInInspector]
-        private string _PrefabPath;
+        protected string _PrefabPath { get; private set; }
 
         private bool _IsInitialized = false;
 
@@ -43,12 +43,12 @@ namespace Librarian
         {
             if (!_IsInitialized)
             {
-                CreateItem(_Item);
+                CreateItem(ref _Item);
                 _IsInitialized = true;
             }
         }
 
-        protected abstract void CreateItem(Item itemToSet);
+        protected abstract void CreateItem(ref Item itemToSet);
 
         public sealed override float GetBonus(Feeling feeling)
         {

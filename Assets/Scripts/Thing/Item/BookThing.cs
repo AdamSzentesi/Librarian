@@ -2,9 +2,9 @@
 {
     public class BookThing : Pickupable
     {
-        protected override void CreateItem(Item itemToSet)
+        protected override void CreateItem(ref Item itemToSet)
         {
-            itemToSet = new BookItem(0.333f);
+            itemToSet = new BookItem(this, _PrefabPath, 0.333f);
         }
     }
 }
