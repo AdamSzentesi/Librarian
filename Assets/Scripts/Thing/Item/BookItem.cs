@@ -1,13 +1,17 @@
 ﻿namespace Librarian
 {
-    public class BookItem : Item2
+    public class BookItem : Item
     {
-        public BookItem(Pickupable owner, string prefabPath, float funBonus) : base(owner, prefabPath)
+        public BookItem(float funBonus) : this(null, string.Empty, funBonus)
         {
-            _Bonuses[(int)Feeling2.Fun] = funBonus;
         }
 
-        public override float GetBonus(Feeling2 feeling)
+        public BookItem(Pickupable owner, string prefabPath, float funBonus) : base(owner, prefabPath)
+        {
+            _Bonuses[(int)Feeling.Fun] = funBonus;
+        }
+
+        public override float GetBonus(Feeling feeling)
         {
             throw new System.NotImplementedException();
         }

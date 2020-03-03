@@ -5,9 +5,9 @@ namespace Librarian
 {
     public enum Feeling
     {
-        Boredom,
-        Fear,
-        Tiredness,
+        Fun,
+        Calm,
+        Fresh,
     }
 
     public class FeelingManager
@@ -35,9 +35,9 @@ namespace Librarian
                 _Order[i] = i;
             }
 
-            _Rates[(int)Feeling.Boredom] = 1.0f;
-            _Rates[(int)Feeling.Fear] = -1.0f;
-            _Rates[(int)Feeling.Tiredness] = 0.5f;
+            _Rates[(int)Feeling.Fun] = -1.0f;
+            _Rates[(int)Feeling.Calm] = 1.0f;
+            _Rates[(int)Feeling.Fresh] = -0.5f;
         }
 
         public void Update()

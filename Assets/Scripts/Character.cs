@@ -37,7 +37,7 @@ namespace Librarian
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Vector3 TargetPosition;
-        private Item2 _Item2;
+        private Item _Item2;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
@@ -49,9 +49,9 @@ namespace Librarian
             _StateBehaviors[(int)State.Run] = RunBehavior;
             _StateBehaviors[(int)State.Sit] = SitBehavior;
 
-            _FeelingReactions[(int)Feeling.Boredom] = BoredomReaction;
-            _FeelingReactions[(int)Feeling.Fear] = FearReaction;
-            _FeelingReactions[(int)Feeling.Tiredness] = TirednessReaction;
+            _FeelingReactions[(int)Feeling.Fun] = BoredomReaction;
+            _FeelingReactions[(int)Feeling.Calm] = FearReaction;
+            _FeelingReactions[(int)Feeling.Fresh] = TirednessReaction;
 
             _FeelingManager.Init();
         }
@@ -64,9 +64,9 @@ namespace Librarian
 
 
 
-            float boredom = _FeelingManager.GetFeeling(Feeling.Boredom);
-            float fear = _FeelingManager.GetFeeling(Feeling.Fear);
-            float tiredness = _FeelingManager.GetFeeling(Feeling.Tiredness);
+            float boredom = _FeelingManager.GetFeeling(Feeling.Fun);
+            float fear = _FeelingManager.GetFeeling(Feeling.Calm);
+            float tiredness = _FeelingManager.GetFeeling(Feeling.Fresh);
 
             Stats.text = "B: " + boredom + "\nF: " + fear + "\nT: " + tiredness;
 
@@ -114,7 +114,7 @@ namespace Librarian
             behaviorAction.Induce();
         }
 
-        public bool PickItem(Item2 item)
+        public bool PickItem(Item item)
         {
             if (item == null || _Item2 != null) return false;
 

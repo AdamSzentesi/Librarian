@@ -1,25 +1,27 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Librarian
 {
-    public abstract class Item2
+    public abstract class Item
     {
-        private string _PrefabPath;
-        private Pickupable _Owner;
+        private string _PrefabPath = string.Empty;
+        private Pickupable _Owner = null;
         
         protected float[] _Bonuses;
 
-        public Item2(Pickupable owner, string prefabPath)
+        public Item()
+        {
+        }
+
+        public Item(Pickupable owner, string prefabPath)
         {
             _Owner = owner;
             _PrefabPath = prefabPath;
-            _Bonuses = new float[Enum.GetNames(typeof(Feeling2)).Length];
+            _Bonuses = new float[Enum.GetNames(typeof(Feeling)).Length];
         }
 
-        public abstract float GetBonus(Feeling2 feeling);
+        public abstract float GetBonus(Feeling feeling);
 
         public void CreateThing(Vector3 position)
         {

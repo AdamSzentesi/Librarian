@@ -16,7 +16,7 @@
             return true;
         }
 
-        public override float GetBonus(Feeling2 feeling)
+        public override float GetBonus(Feeling feeling)
         {
             throw new System.NotImplementedException();
         }

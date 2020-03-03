@@ -3,17 +3,10 @@ using UnityEngine;
 
 namespace Librarian
 {
-    public enum Feeling2
-    {
-        Fun,
-        Calm,
-        Fresh,
-    }
-
     public abstract class Pickupable : Interactable
     {
         [SerializeField]
-        private Item2 _Item;
+        private Item _Item;
 
         [SerializeField, HideInInspector]
         private string _PrefabPath;
@@ -38,7 +31,7 @@ namespace Librarian
         }
 #endif
 
-        public void Init(Item2 item)
+        public void Init(Item item)
         {
             if (_IsInitialized) return;
 
@@ -55,9 +48,9 @@ namespace Librarian
             }
         }
 
-        protected abstract void CreateItem(Item2 itemToSet);
+        protected abstract void CreateItem(Item itemToSet);
 
-        public sealed override float GetBonus(Feeling2 feeling)
+        public sealed override float GetBonus(Feeling feeling)
         {
             return _Item.GetBonus(feeling);
         }

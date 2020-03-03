@@ -20,7 +20,7 @@
         
         public abstract bool Deactivate(Character character);
 
-        public abstract float GetBonus(Feeling2 feeling);
+        public abstract float GetBonus(Feeling feeling);
 
     }
 }
