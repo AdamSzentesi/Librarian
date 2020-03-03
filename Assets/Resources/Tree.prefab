@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4447887922027938634}
-  - component: {fileID: 2568291106784704812}
   - component: {fileID: 4447887922027938635}
+  - component: {fileID: 6355928374502005463}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -32,25 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2568291106784704812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4447887922027938637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 006be741238a5694da88b73091d48ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BoredomBonus: 0
-  FearBonus: 0
-  TirednessBonus: 0
-  Trigger: {fileID: 0}
-  Obstacle: {fileID: 0}
-  IsBillboard: 1
-  _PrefabPath: Tree
 --- !u!212 &4447887922027938635
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -100,3 +81,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &6355928374502005463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447887922027938637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a84e476c1c3a74ab94ffdcb5dac254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsBillboard: 1
+  BillboardParent: {fileID: 0}
+  Trigger: {fileID: 0}
+  Obstacle: {fileID: 0}

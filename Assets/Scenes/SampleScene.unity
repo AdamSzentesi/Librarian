@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -229,14 +229,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c967de30584ee74e89e6ef766adcd06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoredomBonus: 0
-  FearBonus: 0
-  TirednessBonus: 0
+  IsBillboard: 1
+  BillboardParent: {fileID: 0}
   Trigger: {fileID: 0}
   Obstacle: {fileID: 0}
-  IsBillboard: 1
-  _PrefabPath: 
-  DebugItem: {fileID: 625396234}
+  DebugItem: {fileID: 777162910}
   Name: John
   Stats: {fileID: 1729045695}
   WalkSpeed: 1
@@ -331,18 +328,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e3843563b5ac78498b699a08151e65d, type: 3}
---- !u!114 &625396234 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2568291106784704812, guid: 08d4d86a9ea1a8946b07d727361cf127,
-    type: 3}
-  m_PrefabInstance: {fileID: 4447887921241076967}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 006be741238a5694da88b73091d48ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +419,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &777162910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3559180579512814354, guid: 5e3843563b5ac78498b699a08151e65d,
+    type: 3}
+  m_PrefabInstance: {fileID: 542079615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1a27af3d493df45b0e5c6ba7abaaf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &814380028
 GameObject:
   m_ObjectHideFlags: 0

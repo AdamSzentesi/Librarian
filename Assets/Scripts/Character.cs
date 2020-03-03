@@ -12,9 +12,9 @@ namespace Librarian
         Sit,
     }
 
-    public class Character : SceneItem
+    public class Character : Thing
     {
-        public SceneItem DebugItem;
+        public Interactable DebugItem;
 
         public string Name;
         public TextMesh Stats;
@@ -37,16 +37,13 @@ namespace Librarian
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Vector3 TargetPosition;
-        private Item _Item;
-
+        private Item2 _Item2;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
-
             _StateBehaviors[(int)State.Idle] = IdleBehavior;
             _StateBehaviors[(int)State.Walk] = WalkBehavior;
             _StateBehaviors[(int)State.Run] = RunBehavior;
@@ -76,7 +73,7 @@ namespace Librarian
             // DEBUG
             if (Input.GetKeyUp(KeyCode.Space) && DebugItem)
             {
-                PickItem(DebugItem.Item);
+                DebugItem.Activate(this);
             }
             if (Input.GetKeyUp(KeyCode.Return))
             {
@@ -117,22 +114,22 @@ namespace Librarian
             behaviorAction.Induce();
         }
 
-        public bool PickItem(Item item)
+        public bool PickItem(Item2 item)
         {
-            if (item == null || _Item != null) return false;
+            if (item == null || _Item2 != null) return false;
 
-            _Item = item;
-            item.DestroyInstance();
-
+            _Item2 = item;
+            _Item2.DestroyThing();
+            
             return true;
         }
 
         public bool DropItem()
         {
-            if (_Item == null) return false;
+            if (_Item2 == null) return false;
 
-            _Item.CreateInstance(_Item);
-            _Item = null;
+            _Item2.CreateThing(transform.position);
+            _Item2 = null;
 
             return true;
         }
