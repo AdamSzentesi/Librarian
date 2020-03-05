@@ -10,5 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f14b38963b400044bce93bc6d20d35b, type: 3}
-  m_Name: TestItem
+  m_Name: FunnySoulTeplate
   m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
