@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2144041059363057221}
   m_Layer: 0
-  m_Name: Sprites
+  m_Name: Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,8 +320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1a27af3d493df45b0e5c6ba7abaaf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsBillboard: 1
-  BillboardParent: {fileID: 2144041059363057221}
+  _Billboard: {fileID: 2144041059363057221}
+  _MainSprite: {fileID: 6802777778483876976}
+  _TopSprite: {fileID: 6802777777855181181}
+  _BottomSprite: {fileID: 6802777778568775069}
   Trigger: {fileID: 0}
   Obstacle: {fileID: 0}
 --- !u!65 &6802777778748864471

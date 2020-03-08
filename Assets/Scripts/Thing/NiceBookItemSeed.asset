@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f14b38963b400044bce93bc6d20d35b, type: 3}
-  m_Name: FunnySoulTeplate
+  m_Script: {fileID: 11500000, guid: 14b42d6874b7cb140b7981aebfa0ffe1, type: 3}
+  m_Name: NiceBookItemSeed
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
+  MainSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  TopSprite: {fileID: 0}
+  BottomSprite: {fileID: 0}

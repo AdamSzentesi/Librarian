@@ -12,9 +12,10 @@ namespace Librarian
         Sit,
     }
 
-    public class Character : Thing
+    public class Character : ItemBody
     {
-        public Interactable DebugItem;
+        public InteractableItemBody DebugItem;
+        public GameObject DebugItemBodyPrefab;
 
         public string Name;
         public TextMesh Stats;
@@ -119,7 +120,7 @@ namespace Librarian
             if (item == null || _Item2 != null) return false;
 
             _Item2 = item;
-            _Item2.DestroyThing();
+            _Item2.Despawn();
             
             return true;
         }
@@ -128,7 +129,7 @@ namespace Librarian
         {
             if (_Item2 == null) return false;
 
-            _Item2.CreateThing(transform.position);
+            _Item2.Spawn(DebugItemBodyPrefab, transform.position);
             _Item2 = null;
 
             return true;

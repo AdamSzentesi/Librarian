@@ -1,6 +1,6 @@
 ﻿namespace Librarian
 {
-    public abstract class Interactable : Thing
+    public abstract class InteractableItemBody : ItemBody
     {
         private int _RegisteredIndex = -1;
 

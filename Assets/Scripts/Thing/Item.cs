@@ -3,43 +3,46 @@ using UnityEngine;
 
 namespace Librarian
 {
-    public abstract class Item
+    public class Item
     {
-        private string _PrefabPath = string.Empty;
-        private Pickupable _Owner = null;
-        
+        private PickupableItemBody _Body = null;
         protected float[] _Bonuses;
 
-        public Item()
-        {
-        }
+        private Sprite MainSprite;
+        private Sprite TopSprite;
+        private Sprite BottomSprite;
 
-        public Item(Pickupable owner, string prefabPath)
+        public Item(PickupableItemBody body)
         {
-            _Owner = owner;
-            _PrefabPath = prefabPath;
+            _Body = body;
+
+            if (_Body)
+            {
+                MainSprite = _Body.MainSprite;
+                TopSprite = _Body.TopSprite;
+                BottomSprite = _Body.BottomSprite;
+            }
+
             _Bonuses = new float[Enum.GetNames(typeof(Feeling)).Length];
         }
 
-        public abstract float GetBonus(Feeling feeling);
-
-        public void CreateThing(Vector3 position)
+        public float GetBonus(Feeling feeling)
         {
-            GameObject instance = PrefabManager.CreateInstance(_PrefabPath);
-            instance.transform.position = position;
-            Pickupable sceneItem = instance.GetComponent<Pickupable>();
-            
-            if (sceneItem)
-            {
-                sceneItem.Init(this);
-            }
+            return _Bonuses[(int)feeling];
         }
 
-        public void DestroyThing()
+        public void Spawn(GameObject prefab, Vector3 position)
         {
-            if (!_Owner) return;
+            GameObject instance = GameObject.Instantiate(prefab);
+            instance.transform.position = position;
+            
+            PickupableItemBody sceneItem = instance.GetComponent<PickupableItemBody>();
+            if (sceneItem) sceneItem.Init(this);
+        }
 
-            _Owner.Selfdestruct();
+        public void Despawn()
+        {
+            if (_Body) _Body.Despawn();
         }
 
     }
