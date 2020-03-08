@@ -25,25 +25,25 @@ namespace Librarian
         public Collider Trigger;
         public Collider Obstacle;
 
-        private void OnValidate()
-        {
-            SetupSprites();
-        }
+        //private void OnValidate()
+        //{
+        //    SetupSprites();
+        //}
 
         protected virtual void Awake()
         {
             if (_Billboard) _Billboard.rotation = Level.CameraRotation;
 
-            SetupSprites();
+            //SetupSprites();
         }
 
-        private void SetupSprites()
+        public void SetupSprites(Item item)
         {
-            if (_ItemSeed)
+            if (item != null)
             {
-                MainSprite = _ItemSeed.MainSprite;
-                TopSprite = _ItemSeed.TopSprite;
-                BottomSprite = _ItemSeed.BottomSprite;
+                MainSprite = item.MainSprite;
+                TopSprite = item.TopSprite;
+                BottomSprite = item.BottomSprite;
             }
         }
 

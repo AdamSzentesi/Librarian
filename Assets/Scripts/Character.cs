@@ -38,7 +38,7 @@ namespace Librarian
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Vector3 TargetPosition;
-        private Item _Item2;
+        private Item _Inventory;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
@@ -117,20 +117,20 @@ namespace Librarian
 
         public bool PickItem(Item item)
         {
-            if (item == null || _Item2 != null) return false;
+            if (item == null || _Inventory != null) return false;
 
-            _Item2 = item;
-            _Item2.Despawn();
+            _Inventory = item;
+            _Inventory.Despawn();
             
             return true;
         }
 
         public bool DropItem()
         {
-            if (_Item2 == null) return false;
+            if (_Inventory == null) return false;
 
-            _Item2.Spawn(DebugItemBodyPrefab, transform.position);
-            _Item2 = null;
+            _Inventory.Spawn(DebugItemBodyPrefab, transform.position);
+            _Inventory = null;
 
             return true;
         }

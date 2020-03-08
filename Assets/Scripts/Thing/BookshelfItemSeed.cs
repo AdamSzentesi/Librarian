@@ -8,11 +8,7 @@ namespace Librarian
         {
             Debug.Log("BookshelfItemSeed: CreateItem for " + body.gameObject);
 
-            Item item = new Item(body);
-
-            //item.ma
-
-            return item;
+            return new Item(body);
         }
     }
 }

@@ -236,8 +236,9 @@ MonoBehaviour:
   _BottomSprite: {fileID: 0}
   Trigger: {fileID: 0}
   Obstacle: {fileID: 0}
-  DebugItem: {fileID: 0}
-  DebugItemBodyPrefab: {fileID: 0}
+  DebugItem: {fileID: 621055406}
+  DebugItemBodyPrefab: {fileID: 6231963272273280542, guid: f2c57637ea70e3140985be58d8022ad9,
+    type: 3}
   Name: John
   Stats: {fileID: 1729045695}
   WalkSpeed: 1
@@ -421,6 +422,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e3843563b5ac78498b699a08151e65d, type: 3}
+--- !u!114 &621055406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6495408902735779168, guid: 36f03d93999992041a7fc0c48fdd0a31,
+    type: 3}
+  m_PrefabInstance: {fileID: 312569618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adc7d61c38949042a3662dc8369039c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

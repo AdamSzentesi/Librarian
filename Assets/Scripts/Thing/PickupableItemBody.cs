@@ -13,6 +13,7 @@ namespace Librarian
 
             Debug.Log("PickupableItemBody: Init - external: " + gameObject);
             _Item = item;
+            SetupSprites(_Item);
             _IsInitialized = true;
         }
 
@@ -24,6 +25,7 @@ namespace Librarian
                 {
                     Debug.Log("PickupableItemBody: Start - from seed: " + gameObject);
                     _Item = _ItemSeed.CreateItem(this);
+                    SetupSprites(_Item);
                     _IsInitialized = true;
                 }
                 else

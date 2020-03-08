@@ -8,9 +8,9 @@ namespace Librarian
         private PickupableItemBody _Body = null;
         protected float[] _Bonuses;
 
-        private Sprite MainSprite;
-        private Sprite TopSprite;
-        private Sprite BottomSprite;
+        public Sprite MainSprite { get; private set; }
+        public Sprite TopSprite { get; private set; }
+        public Sprite BottomSprite { get; private set; }
 
         public Item(PickupableItemBody body)
         {
