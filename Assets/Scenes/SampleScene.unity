@@ -350,6 +350,12 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2159139237404648881, guid: 36f03d93999992041a7fc0c48fdd0a31,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3953225340917138654, guid: bcae269e8c63c67438f134a40e3ac431,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36f03d93999992041a7fc0c48fdd0a31, type: 3}
 --- !u!1001 &508464898
@@ -428,6 +434,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3204545796529630783, guid: 5e3843563b5ac78498b699a08151e65d,
+        type: 3}
+      propertyPath: FunBonus
+      value: -24
+      objectReference: {fileID: 0}
+    - target: {fileID: -3204545796529630783, guid: 5e3843563b5ac78498b699a08151e65d,
+        type: 3}
+      propertyPath: CalmBonus
+      value: -48
+      objectReference: {fileID: 0}
     - target: {fileID: 6802777778748864425, guid: 5e3843563b5ac78498b699a08151e65d,
         type: 3}
       propertyPath: m_Name

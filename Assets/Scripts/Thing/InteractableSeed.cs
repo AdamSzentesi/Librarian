@@ -2,7 +2,6 @@
 
 namespace Librarian
 {
-    [CreateAssetMenu(fileName = "InteractableSeed", menuName = "Librarian/Seed/InteractableSeed")]
     public class InteractableSeed : BasicSeed
     {
         [Range(-100, 100)]
@@ -12,7 +11,7 @@ namespace Librarian
         [Range(-100, 100)]
         public float FreshBonus;
 
-        public InteractableItem CreateItem(InteractableBody body)
+        public override InteractableItem CreateItem()
         {
             return new InteractableItem();
         }

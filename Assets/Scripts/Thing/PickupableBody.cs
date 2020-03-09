@@ -2,40 +2,21 @@
 
 namespace Librarian
 {
+    [RequireComponent(typeof(PickupableSeed))]
     public class PickupableBody : InteractableBody
     {
-        [SerializeField]
-        protected PickupableSeed _PickupableSeed;
-
-        protected PickupableItem _PickupableItem;
-        protected override InteractableItem _InteractableItem { get { return _PickupableItem; } }
-
-        private bool _IsInitialized = false;
+        protected PickupableItem _PickupableItem { get { return _InteractableItem as PickupableItem; } }
 
         public void Init(PickupableItem item)
         {
             if (_IsInitialized) return;
 
             Debug.Log("PickupableItemBody: Init - external: " + gameObject);
-            _PickupableItem = item;
+            _InteractableItem = item;
+            MainSprite = _PickupableItem.MainSprite;
+            TopSprite = _PickupableItem.TopSprite;
+            BottomSprite = _PickupableItem.BottomSprite;
             _IsInitialized = true;
-        }
-
-        private void Start()
-        {
-            if (!_IsInitialized)
-            {
-                if (_PickupableSeed)
-                {
-                    Debug.Log("PickupableItemBody: Start - from seed: " + gameObject);
-                    _PickupableItem = _PickupableSeed.CreateItem(this);
-                    _IsInitialized = true;
-                }
-                else
-                {
-                    Debug.LogWarning("PickupableItemBody: " + gameObject + " has no PickupableSeed!");
-                }
-            }
         }
 
         public sealed override bool Activate(Character character)

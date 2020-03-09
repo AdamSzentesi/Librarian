@@ -2,12 +2,11 @@
 
 namespace Librarian
 {
+    [RequireComponent(typeof(InteractableSeed))]
     public class InteractableBody : BasicBody
     {
-        [SerializeField]
-        protected InteractableSeed _InteractableSeed;
-        
-        protected virtual InteractableItem _InteractableItem { get; set; }
+        protected InteractableItem _InteractableItem;
+        protected bool _IsInitialized = false;
 
         private int _RegisteredIndex = -1;
 
@@ -16,7 +15,16 @@ namespace Librarian
             base.Awake();
 
             _RegisteredIndex = Level.RegisterInteractable(this);
-            if(_InteractableSeed) _InteractableItem = _InteractableSeed.CreateItem(this);
+        }
+
+        protected virtual void Start()
+        {
+            if (!_IsInitialized)
+            {
+                Debug.Log("InteractableBody: Init - start " + gameObject);
+                _InteractableItem = GetComponent<InteractableSeed>().CreateItem();
+                _IsInitialized = true;
+            }
         }
 
         protected virtual void OnDestroy()

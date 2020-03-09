@@ -2,13 +2,15 @@
 
 namespace Librarian
 {
-    [CreateAssetMenu(fileName = "PickupableSeed", menuName = "Librarian/Seed/PickupableSeed")]
-    public class PickupableSeed : BasicSeed
+    public class PickupableSeed : InteractableSeed
     {
         public Sprite Icon;
 
-        public PickupableItem CreateItem(PickupableBody body)
+        public override InteractableItem CreateItem()
         {
+            PickupableBody body = GetComponent<PickupableBody>();
+            if (!body) return null;
+
             return new PickupableItem(body);
         }
 

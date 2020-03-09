@@ -2,10 +2,10 @@
 
 namespace Librarian
 {
-    [CreateAssetMenu(fileName = "BasicSeed", menuName = "Librarian/Seed/BasicSeed")]
-    public abstract class BasicSeed : ScriptableObject
+    [DisallowMultipleComponent]
+    public abstract class BasicSeed : MonoBehaviour
     {
-        public string Name;
+        public abstract InteractableItem CreateItem();
 
     }
 }

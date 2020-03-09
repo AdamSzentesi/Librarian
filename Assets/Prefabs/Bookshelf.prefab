@@ -285,6 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6802777778748864468}
   - component: {fileID: 4247699759473932006}
+  - component: {fileID: -3204545796529630783}
   - component: {fileID: 6802777778748864471}
   m_Layer: 0
   m_Name: Bookshelf
@@ -326,7 +327,18 @@ MonoBehaviour:
   _BottomSprite: {fileID: 6802777778568775069}
   Trigger: {fileID: 0}
   Obstacle: {fileID: 6802777778748864471}
-  _InteractableSeed: {fileID: 0}
+--- !u!114 &-3204545796529630783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802777778748864425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10538d2af5511c04896a57e83c45c5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6802777778748864471
 BoxCollider:
   m_ObjectHideFlags: 0
