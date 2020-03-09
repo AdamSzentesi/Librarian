@@ -38,7 +38,10 @@ namespace Librarian
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Vector3 TargetPosition;
+        private State _CurrentState;
         private PickupableItem _Inventory;
+
+        public Feelings StartingFeelings;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
@@ -54,7 +57,7 @@ namespace Librarian
             _FeelingReactions[(int)Feeling.Calm] = FearReaction;
             _FeelingReactions[(int)Feeling.Fresh] = TirednessReaction;
 
-            _FeelingManager.Init();
+            _FeelingManager.Init(StartingFeelings);
         }
 
         private void Update()
@@ -63,13 +66,13 @@ namespace Librarian
 
             // TODO: feeling buffs
 
+            EvaluateFeelings();
 
+            float fun = _FeelingManager.GetFeeling(Feeling.Fun);
+            float calm = _FeelingManager.GetFeeling(Feeling.Calm);
+            float fresh = _FeelingManager.GetFeeling(Feeling.Fresh);
 
-            float boredom = _FeelingManager.GetFeeling(Feeling.Fun);
-            float fear = _FeelingManager.GetFeeling(Feeling.Calm);
-            float tiredness = _FeelingManager.GetFeeling(Feeling.Fresh);
-
-            Stats.text = "B: " + boredom + "\nF: " + fear + "\nT: " + tiredness;
+            Stats.text = "FUN: " + fun + "\nCALM: " + calm + "\nFRESH: " + fresh;
 
             // DEBUG
             if (Input.GetKeyUp(KeyCode.Space) && DebugItem)
@@ -145,6 +148,12 @@ namespace Librarian
         {
             yield return new WaitForSeconds(2.0f);
             _CanEvaluate = true;
+        }
+
+        public void WalkTo(Vector3 targetPosition)
+        {
+            TargetPosition = targetPosition;
+            if (TargetPosition != null) _CurrentState = State.Walk;
         }
 
     }

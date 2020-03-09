@@ -10,9 +10,9 @@ namespace Librarian
         public InteractableItem(InteractableSeed seed)
         {
             _Bonuses = new float[Enum.GetNames(typeof(Feeling)).Length];
-            _Bonuses[(int)Feeling.Fun] = seed.FunBonus;
-            _Bonuses[(int)Feeling.Calm] = seed.CalmBonus;
-            _Bonuses[(int)Feeling.Fresh] = seed.FreshBonus;
+            _Bonuses[(int)Feeling.Fun] = seed.FeelingsBonus.Fun;
+            _Bonuses[(int)Feeling.Calm] = seed.FeelingsBonus.Calm;
+            _Bonuses[(int)Feeling.Fresh] = seed.FeelingsBonus.Fresh;
         }
 
         public bool Activate(Character character)
