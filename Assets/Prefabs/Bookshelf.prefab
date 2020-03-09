@@ -284,7 +284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6802777778748864468}
-  - component: {fileID: 3559180579512814354}
+  - component: {fileID: 4247699759473932006}
   - component: {fileID: 6802777778748864471}
   m_Layer: 0
   m_Name: Bookshelf
@@ -308,7 +308,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3559180579512814354
+--- !u!114 &4247699759473932006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6802777778748864425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1a27af3d493df45b0e5c6ba7abaaf3, type: 3}
+  m_Script: {fileID: 11500000, guid: bb46f7ad866774745835e039be6a1606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Billboard: {fileID: 2144041059363057221}
@@ -325,7 +325,8 @@ MonoBehaviour:
   _TopSprite: {fileID: 6802777777855181181}
   _BottomSprite: {fileID: 6802777778568775069}
   Trigger: {fileID: 0}
-  Obstacle: {fileID: 0}
+  Obstacle: {fileID: 6802777778748864471}
+  _InteractableSeed: {fileID: 0}
 --- !u!65 &6802777778748864471
 BoxCollider:
   m_ObjectHideFlags: 0

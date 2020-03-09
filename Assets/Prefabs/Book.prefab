@@ -124,13 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adc7d61c38949042a3662dc8369039c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ItemSeed: {fileID: 11400000, guid: 3e27c38c4bc5a4241b6dc19c9dff77b7, type: 2}
   _Billboard: {fileID: 5417825075715778798}
   _MainSprite: {fileID: 2159139237404648881}
   _TopSprite: {fileID: 0}
   _BottomSprite: {fileID: 0}
   Trigger: {fileID: 0}
   Obstacle: {fileID: 0}
+  _InteractableSeed: {fileID: 0}
+  _PickupableSeed: {fileID: 11400000, guid: 7de8258451fdbb9478491121930b13a8, type: 2}
 --- !u!1 &6875637340992701204
 GameObject:
   m_ObjectHideFlags: 0

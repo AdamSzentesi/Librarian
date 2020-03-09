@@ -2,11 +2,11 @@
 
 namespace Librarian
 {
-    public class InteractableItem : BasicItem
+    public class InteractableItem
     {
         protected float[] _Bonuses;
 
-        public InteractableItem(PickupableBody body) : base(body)
+        public InteractableItem()
         {
             _Bonuses = new float[Enum.GetNames(typeof(Feeling)).Length];
         }

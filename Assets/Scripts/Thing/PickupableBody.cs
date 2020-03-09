@@ -7,6 +7,9 @@ namespace Librarian
         [SerializeField]
         protected PickupableSeed _PickupableSeed;
 
+        protected PickupableItem _PickupableItem;
+        protected override InteractableItem _InteractableItem { get { return _PickupableItem; } }
+
         private bool _IsInitialized = false;
 
         public void Init(PickupableItem item)
@@ -14,8 +17,7 @@ namespace Librarian
             if (_IsInitialized) return;
 
             Debug.Log("PickupableItemBody: Init - external: " + gameObject);
-            _InteractableItem = item;
-            SetupSprites(_InteractableItem);
+            _PickupableItem = item;
             _IsInitialized = true;
         }
 
@@ -26,8 +28,7 @@ namespace Librarian
                 if (_PickupableSeed)
                 {
                     Debug.Log("PickupableItemBody: Start - from seed: " + gameObject);
-                    _InteractableItem = _PickupableSeed.CreateItem(this);
-                    SetupSprites(_InteractableItem);
+                    _PickupableItem = _PickupableSeed.CreateItem(this);
                     _IsInitialized = true;
                 }
                 else
@@ -43,7 +44,7 @@ namespace Librarian
             
             Deactivate(character);
 
-            return character.PickItem(_InteractableItem);
+            return character.PickItem(_PickupableItem);
         }
 
         public sealed override bool Deactivate(Character character)

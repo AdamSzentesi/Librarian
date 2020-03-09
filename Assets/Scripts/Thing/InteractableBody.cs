@@ -6,7 +6,8 @@ namespace Librarian
     {
         [SerializeField]
         protected InteractableSeed _InteractableSeed;
-        protected InteractableItem _InteractableItem;
+        
+        protected virtual InteractableItem _InteractableItem { get; set; }
 
         private int _RegisteredIndex = -1;
 
@@ -15,6 +16,7 @@ namespace Librarian
             base.Awake();
 
             _RegisteredIndex = Level.RegisterInteractable(this);
+            if(_InteractableSeed) _InteractableItem = _InteractableSeed.CreateItem(this);
         }
 
         protected virtual void OnDestroy()
