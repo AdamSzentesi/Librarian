@@ -13,7 +13,7 @@ namespace Librarian
 
         public override InteractableItem CreateItem()
         {
-            return new InteractableItem();
+            return new InteractableItem(this);
         }
 
     }

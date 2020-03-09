@@ -2,21 +2,25 @@
 
 namespace Librarian
 {
-    [RequireComponent(typeof(PickupableSeed))]
     public class PickupableBody : InteractableBody
     {
         protected PickupableItem _PickupableItem { get { return _InteractableItem as PickupableItem; } }
 
+        public override InteractableSeed GetSeed()
+        {
+            return GetComponent<PickupableSeed>();
+        }
+
         public void Init(PickupableItem item)
         {
-            if (_IsInitialized) return;
+            if (_IsInitialized || item == null) return;
 
-            Debug.Log("PickupableItemBody: Init - external: " + gameObject);
-            _InteractableItem = item;
-            MainSprite = _PickupableItem.MainSprite;
-            TopSprite = _PickupableItem.TopSprite;
-            BottomSprite = _PickupableItem.BottomSprite;
-            _IsInitialized = true;
+            item.Body = this;
+            MainSprite = item.MainSprite;
+            TopSprite = item.TopSprite;
+            BottomSprite = item.BottomSprite;
+
+            base.Init(item);
         }
 
         public sealed override bool Activate(Character character)

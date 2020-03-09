@@ -11,7 +11,7 @@ namespace Librarian
             PickupableBody body = GetComponent<PickupableBody>();
             if (!body) return null;
 
-            return new PickupableItem(body);
+            return new PickupableItem(this, body);
         }
 
     }

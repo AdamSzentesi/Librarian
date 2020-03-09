@@ -2,7 +2,6 @@
 
 namespace Librarian
 {
-    [RequireComponent(typeof(InteractableSeed))]
     public class InteractableBody : BasicBody
     {
         protected InteractableItem _InteractableItem;
@@ -21,10 +20,32 @@ namespace Librarian
         {
             if (!_IsInitialized)
             {
-                Debug.Log("InteractableBody: Init - start " + gameObject);
-                _InteractableItem = GetComponent<InteractableSeed>().CreateItem();
-                _IsInitialized = true;
+                InteractableSeed seed = GetSeed();
+                if (seed)
+                {
+                    InteractableItem item = seed.CreateItem();
+                    Init(item);
+                }
+                else
+                {
+                    Debug.LogWarning("InteractableBody: I have no Seed " + gameObject);
+                }
             }
+
+            //_InteractableItem.DebugMe();
+        }
+
+        public virtual InteractableSeed GetSeed()
+        {
+            return GetComponent<InteractableSeed>();
+        }
+
+        public virtual void Init(InteractableItem item)
+        {
+            if (_IsInitialized || item == null) return;
+
+            _InteractableItem = item;
+            _IsInitialized = true;
         }
 
         protected virtual void OnDestroy()

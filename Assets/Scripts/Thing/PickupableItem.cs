@@ -4,21 +4,21 @@ namespace Librarian
 {
     public class PickupableItem : InteractableItem
     {
-        private PickupableBody _Body;
+        public PickupableBody Body;
 
         public Sprite MainSprite { get; private set; }
         public Sprite TopSprite { get; private set; }
         public Sprite BottomSprite { get; private set; }
 
-        public PickupableItem(PickupableBody body) : base()
+        public PickupableItem(InteractableSeed seed, PickupableBody body) : base(seed)
         {
-            _Body = body;
+            Body = body;
 
-            if (_Body)
+            if (Body)
             {
-                MainSprite = _Body.MainSprite;
-                TopSprite = _Body.TopSprite;
-                BottomSprite = _Body.BottomSprite;
+                MainSprite = Body.MainSprite;
+                TopSprite = Body.TopSprite;
+                BottomSprite = Body.BottomSprite;
             }
         }
 
@@ -33,7 +33,18 @@ namespace Librarian
 
         public void Despawn()
         {
-            if (_Body) _Body.Despawn();
+            if (Body) Body.Despawn();
+            Body = null;
+        }
+
+        public override void DebugMe()
+        {
+            base.DebugMe();
+
+            Debug.Log(" - Body: " + Body);
+            Debug.Log(" - MainSprite: " + MainSprite);
+            Debug.Log(" - TopSprite: " + TopSprite);
+            Debug.Log(" - BottomSprite: " + BottomSprite);
         }
 
     }
