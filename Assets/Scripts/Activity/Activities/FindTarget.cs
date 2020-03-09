@@ -8,7 +8,7 @@ namespace Librarian
         {
             if (!character) return false;
 
-            character.TargetPosition = Level.GetNearestInteractablePosition(character.transform.position);
+            character.Target = Level.GetNearestInteractableBody(character.transform.position);
             return true;
         }
 

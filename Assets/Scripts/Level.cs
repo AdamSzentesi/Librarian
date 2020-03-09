@@ -89,5 +89,26 @@ namespace Librarian
             return closestPosition;
         }
 
+        public static InteractableBody GetNearestInteractableBody(Vector3 characterPosition)
+        {
+            if (_Instance._Interactables.Count == 0) return null;
+
+            InteractableBody nearestBody = _Instance._Interactables[0];
+            if (_Instance._Interactables.Count == 1) return nearestBody;
+
+            float smallestDistanceSquared = (characterPosition - nearestBody.transform.position).sqrMagnitude;
+            foreach (InteractableBody currentBody in _Instance._Interactables)
+            {
+                float currentDistanceSquared = (characterPosition - currentBody.transform.position).sqrMagnitude;
+                if (currentDistanceSquared < smallestDistanceSquared)
+                {
+                    smallestDistanceSquared = currentDistanceSquared;
+                    nearestBody = currentBody;
+                }
+            }
+
+            return nearestBody;
+        }
+
     }
 }

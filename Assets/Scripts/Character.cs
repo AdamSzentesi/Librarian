@@ -37,7 +37,7 @@ namespace Librarian
         private bool _CanEvaluate = true;
         private Coroutine _EvaluateCooldownCoroutine;
 
-        public Vector3 TargetPosition;
+        public InteractableBody Target;
         private State _CurrentState;
         private PickupableItem _Inventory;
 
@@ -68,13 +68,30 @@ namespace Librarian
 
             EvaluateFeelings();
 
+            if (_CurrentState == State.Walk)
+            {
+                Vector3 direction = Target.transform.position - transform.position;
+                if (direction.sqrMagnitude < 1.0f)
+                {
+                    Target.Activate(this);
+                    _CurrentState = State.Idle;
+                }
+                else
+                {
+                    direction.Normalize();
+                    Vector3 velocity = direction * WalkSpeed;
+                    velocity *= Time.deltaTime;
+                    transform.position += velocity;
+                }
+            }
+
+            // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
             float calm = _FeelingManager.GetFeeling(Feeling.Calm);
             float fresh = _FeelingManager.GetFeeling(Feeling.Fresh);
 
             Stats.text = "FUN: " + fun + "\nCALM: " + calm + "\nFRESH: " + fresh;
-
-            // DEBUG
+            
             if (Input.GetKeyUp(KeyCode.Space) && DebugItem)
             {
                 DebugItem.Activate(this);
@@ -150,10 +167,10 @@ namespace Librarian
             _CanEvaluate = true;
         }
 
-        public void WalkTo(Vector3 targetPosition)
+        public void WalkTo(InteractableBody target)
         {
-            TargetPosition = targetPosition;
-            if (TargetPosition != null) _CurrentState = State.Walk;
+            Target = target;
+            if (Target != null) _CurrentState = State.Walk;
         }
 
     }
