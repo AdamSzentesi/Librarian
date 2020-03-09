@@ -2,18 +2,20 @@
 
 namespace Librarian
 {
-    public class PickupableItemBody : InteractableItemBody
+    public class PickupableBody : InteractableBody
     {
-        private Item _Item;
+        [SerializeField]
+        protected PickupableSeed _PickupableSeed;
+
         private bool _IsInitialized = false;
 
-        public void Init(Item item)
+        public void Init(PickupableItem item)
         {
             if (_IsInitialized) return;
 
             Debug.Log("PickupableItemBody: Init - external: " + gameObject);
-            _Item = item;
-            SetupSprites(_Item);
+            _InteractableItem = item;
+            SetupSprites(_InteractableItem);
             _IsInitialized = true;
         }
 
@@ -21,23 +23,18 @@ namespace Librarian
         {
             if (!_IsInitialized)
             {
-                if (_ItemSeed)
+                if (_PickupableSeed)
                 {
                     Debug.Log("PickupableItemBody: Start - from seed: " + gameObject);
-                    _Item = _ItemSeed.CreateItem(this);
-                    SetupSprites(_Item);
+                    _InteractableItem = _PickupableSeed.CreateItem(this);
+                    SetupSprites(_InteractableItem);
                     _IsInitialized = true;
                 }
                 else
                 {
-                    Debug.LogWarning("PickupableItemBody: " + gameObject + " has no ItemSeed!");
+                    Debug.LogWarning("PickupableItemBody: " + gameObject + " has no PickupableSeed!");
                 }
             }
-        }
-
-        public sealed override float GetBonus(Feeling feeling)
-        {
-            return _Item.GetBonus(feeling);
         }
 
         public sealed override bool Activate(Character character)
@@ -46,7 +43,7 @@ namespace Librarian
             
             Deactivate(character);
 
-            return character.PickItem(_Item);
+            return character.PickItem(_InteractableItem);
         }
 
         public sealed override bool Deactivate(Character character)
@@ -58,6 +55,7 @@ namespace Librarian
         {
             Destroy(gameObject);
         }
+
 
     }
 }

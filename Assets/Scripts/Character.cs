@@ -12,9 +12,9 @@ namespace Librarian
         Sit,
     }
 
-    public class Character : ItemBody
+    public class Character : BasicBody
     {
-        public InteractableItemBody DebugItem;
+        public PickupableBody DebugItem;
         public GameObject DebugItemBodyPrefab;
 
         public string Name;
@@ -38,7 +38,7 @@ namespace Librarian
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Vector3 TargetPosition;
-        private Item _Inventory;
+        private PickupableItem _Inventory;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
@@ -115,7 +115,7 @@ namespace Librarian
             behaviorAction.Induce();
         }
 
-        public bool PickItem(Item item)
+        public bool PickItem(PickupableItem item)
         {
             if (item == null || _Inventory != null) return false;
 

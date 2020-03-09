@@ -2,10 +2,10 @@
 
 namespace Librarian
 {
-    public class ItemBody : MonoBehaviour
+    public class BasicBody : MonoBehaviour
     {
         [SerializeField]
-        protected ItemSeed _ItemSeed;
+        protected BasicSeed _BasicSeed;
 
         [SerializeField]
         private Transform _Billboard;
@@ -25,25 +25,19 @@ namespace Librarian
         public Collider Trigger;
         public Collider Obstacle;
 
-        //private void OnValidate()
-        //{
-        //    SetupSprites();
-        //}
-
         protected virtual void Awake()
         {
             if (_Billboard) _Billboard.rotation = Level.CameraRotation;
-
-            //SetupSprites();
+            if (_BasicSeed) gameObject.name = _BasicSeed.Name;
         }
 
-        public void SetupSprites(Item item)
+        public void SetupSprites(BasicItem basicItem)
         {
-            if (item != null)
+            if (basicItem != null)
             {
-                MainSprite = item.MainSprite;
-                TopSprite = item.TopSprite;
-                BottomSprite = item.BottomSprite;
+                MainSprite = basicItem.MainSprite;
+                TopSprite = basicItem.TopSprite;
+                BottomSprite = basicItem.BottomSprite;
             }
         }
 

@@ -6,7 +6,7 @@ namespace Librarian
     public class Level : MonoBehaviour
     {
         private static Level _Instance;
-        public List<InteractableItemBody> _Interactables = new List<InteractableItemBody>();
+        public List<InteractableBody> _Interactables = new List<InteractableBody>();
 
         public Transform CameraBase;
 
@@ -51,7 +51,7 @@ namespace Librarian
             }
         }
 
-        public static int RegisterInteractable(InteractableItemBody interactable)
+        public static int RegisterInteractable(InteractableBody interactable)
         {
             if (!interactable) return -1;
 
@@ -76,7 +76,7 @@ namespace Librarian
             if (_Instance._Interactables.Count == 1) return closestPosition;
 
             float closestDistanceSquared = (characterPosition - closestPosition).sqrMagnitude;
-            foreach (InteractableItemBody sceneItem in _Instance._Interactables)
+            foreach (InteractableBody sceneItem in _Instance._Interactables)
             {
                 float currentDistanceSquared = (characterPosition - sceneItem.transform.position).sqrMagnitude;
                 if (currentDistanceSquared < closestDistanceSquared)
