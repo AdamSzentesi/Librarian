@@ -4,13 +4,13 @@ namespace Librarian
 {
     public class PickupableItem : InteractableItem
     {
+        public Sprite Icon;
         public PickupableBody Body;
-
         public Sprite MainSprite { get; private set; }
         public Sprite TopSprite { get; private set; }
         public Sprite BottomSprite { get; private set; }
 
-        public PickupableItem(InteractableSeed seed, PickupableBody body) : base(seed)
+        public PickupableItem(PickupableSeed seed, PickupableBody body) : base(seed)
         {
             Body = body;
 
@@ -20,6 +20,8 @@ namespace Librarian
                 TopSprite = Body.TopSprite;
                 BottomSprite = Body.BottomSprite;
             }
+
+            Icon = seed.Icon;
         }
 
         public void Spawn(GameObject prefab, Vector3 position)
@@ -45,6 +47,7 @@ namespace Librarian
             Debug.Log(" - MainSprite: " + MainSprite);
             Debug.Log(" - TopSprite: " + TopSprite);
             Debug.Log(" - BottomSprite: " + BottomSprite);
+            Debug.Log(" - Icon: " + Icon);
         }
 
     }
