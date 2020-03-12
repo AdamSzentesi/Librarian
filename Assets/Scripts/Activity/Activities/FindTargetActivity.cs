@@ -2,9 +2,10 @@
 
 namespace Librarian
 {
-    public class FindTargetActivity : OneShotActivity
+    public class FindTargetActivity : Activity
     {
         private Feeling _FeelingInvolved;
+        public InteractableBody Target { get; private set; }
 
         public FindTargetActivity(Feeling feelingInvolved)
         {
@@ -13,15 +14,13 @@ namespace Librarian
 
         public override bool Begin(Character character, Action onActivityEnd)
         {
-            InteractableBody target = Level.GetNearestInteractableBody(character.transform.position, _FeelingInvolved);
-
-            if (target)
-            {
-                character.WalkTo(target);
-            }
-
-            return target;
+            InteractableBody Target = Level.GetNearestInteractableBody(character.transform.position, _FeelingInvolved);
+            return Target;
         }
 
+        public override bool End()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

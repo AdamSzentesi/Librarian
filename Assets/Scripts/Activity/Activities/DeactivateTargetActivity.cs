@@ -2,19 +2,18 @@
 
 namespace Librarian
 {
-    public class GoToTargetActivity : Activity
+    public class DeactivateTargetActivity : Activity
     {
         public FindTargetActivity _Activity;
 
-        public GoToTargetActivity(FindTargetActivity activity)
+        public DeactivateTargetActivity(FindTargetActivity activity)
         {
             _Activity = activity;
         }
 
         public override bool Begin(Character character, Action onActivityEnd)
         {
-            character.GoToTarget(_Activity.Target);
-            return true;
+            return character.DeactivateTarget(_Activity.Target);
         }
 
         public override bool End()

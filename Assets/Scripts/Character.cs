@@ -170,17 +170,33 @@ namespace Librarian
             _CanEvaluate = true;
         }
 
-        public void WalkTo(InteractableBody target)
-        {
-            Target = target;
-            if (Target != null) _CurrentState = State.Walk;
-        }
-
         public void AddActivity(Activity activity)
         {
             if (activity == null) return;
 
             _Activities.Add(activity);
+        }
+
+        // Activities
+
+        public void GoToTarget(InteractableBody target)
+        {
+            Target = target;
+            if (Target != null) _CurrentState = State.Walk;
+        }
+
+        public bool ActivateTarget(InteractableBody target)
+        {
+            if (target) return target.Activate(this);
+
+            return false;
+        }
+
+        public bool DeactivateTarget(InteractableBody target)
+        {
+            if (target) return target.Deactivate(this);
+
+            return false;
         }
 
     }

@@ -10,7 +10,11 @@ namespace Librarian
 
             Debug.Log("STARTED: FeelingReactionBoredom");
 
-            character.AddActivity(new FindTargetActivity(Feeling.Fun));
+            FindTargetActivity findTarget = new FindTargetActivity(Feeling.Fun);
+            character.AddActivity(findTarget);
+            character.AddActivity(new GoToTargetActivity(findTarget));
+            character.AddActivity(new ActivateTargetActivity(findTarget));
+            //character.AddActivity(new DeactivateTargetActivity(findTarget));
 
             return true;
         }
