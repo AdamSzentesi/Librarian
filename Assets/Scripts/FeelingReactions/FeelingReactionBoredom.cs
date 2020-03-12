@@ -10,10 +10,7 @@ namespace Librarian
 
             Debug.Log("STARTED: FeelingReactionBoredom");
 
-            InteractableBody target = Level.GetNearestInteractableBody(character.transform.position);
-            character.WalkTo(target);
-
-            //character.InduceStateBehavior(State.Walk);
+            character.AddActivity(new FindTargetActivity(Feeling.Fun));
 
             return true;
         }

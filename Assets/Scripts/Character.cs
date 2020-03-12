@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Librarian
@@ -45,6 +46,8 @@ namespace Librarian
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
+
+        private List<Activity> _Activities = new List<Activity>();
 
         protected void Start()
         {
@@ -171,6 +174,13 @@ namespace Librarian
         {
             Target = target;
             if (Target != null) _CurrentState = State.Walk;
+        }
+
+        public void AddActivity(Activity activity)
+        {
+            if (activity == null) return;
+
+            _Activities.Add(activity);
         }
 
     }

@@ -68,28 +68,7 @@ namespace Librarian
             _Instance._Interactables.RemoveAt(index);
         }
 
-        public static Vector3 GetNearestInteractablePosition(Vector3 characterPosition)
-        {
-            if (_Instance._Interactables.Count == 0) return characterPosition;
-
-            Vector3 closestPosition = _Instance._Interactables[0].transform.position;
-            if (_Instance._Interactables.Count == 1) return closestPosition;
-
-            float closestDistanceSquared = (characterPosition - closestPosition).sqrMagnitude;
-            foreach (InteractableBody sceneItem in _Instance._Interactables)
-            {
-                float currentDistanceSquared = (characterPosition - sceneItem.transform.position).sqrMagnitude;
-                if (currentDistanceSquared < closestDistanceSquared)
-                {
-                    closestDistanceSquared = currentDistanceSquared;
-                    closestPosition = sceneItem.transform.position;
-                }
-            }
-
-            return closestPosition;
-        }
-
-        public static InteractableBody GetNearestInteractableBody(Vector3 characterPosition)
+        public static InteractableBody GetNearestInteractableBody(Vector3 characterPosition, Feeling feelingBonus)
         {
             if (_Instance._Interactables.Count == 0) return null;
 
@@ -102,8 +81,11 @@ namespace Librarian
                 float currentDistanceSquared = (characterPosition - currentBody.transform.position).sqrMagnitude;
                 if (currentDistanceSquared < smallestDistanceSquared)
                 {
-                    smallestDistanceSquared = currentDistanceSquared;
-                    nearestBody = currentBody;
+                    if (currentBody.GetBonus(feelingBonus) > 0)
+                    {
+                        smallestDistanceSquared = currentDistanceSquared;
+                        nearestBody = currentBody;
+                    }
                 }
             }
 
