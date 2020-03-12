@@ -12,9 +12,9 @@ namespace Librarian
             _FeelingInvolved = feelingInvolved;
         }
 
-        public override bool Begin(Character character, Action onActivityEnd)
+        public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
         {
-            InteractableBody Target = Level.GetNearestInteractableBody(character.transform.position, _FeelingInvolved);
+            InteractableBody Target = Level.GetNearestInteractableBody(activityManager.Position, _FeelingInvolved);
             return Target;
         }
 

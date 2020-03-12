@@ -6,16 +6,16 @@ namespace Librarian
     {
         private Action _OnActivityEnd;
 
-        public override sealed bool Begin(Character character, Action onActivityEnd)
+        public override sealed bool Begin(ActivityManager activityManager, Action onActivityEnd)
         {
-            IsInProgress = BeginInternal(character);
+            IsInProgress = BeginInternal(activityManager);
 
             if (IsInProgress) _OnActivityEnd += onActivityEnd;
 
             return IsInProgress;
         }
 
-        protected abstract bool BeginInternal(Character character);
+        protected abstract bool BeginInternal(ActivityManager activityManager);
 
         public override sealed bool End()
         {

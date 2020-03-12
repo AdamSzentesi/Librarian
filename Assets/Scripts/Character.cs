@@ -38,16 +38,11 @@ namespace Librarian
         private bool _CanEvaluate = true;
         private Coroutine _EvaluateCooldownCoroutine;
 
-        public InteractableBody Target;
-        private State _CurrentState;
-        private PickupableItem _Inventory;
-
         public Feelings StartingFeelings;
 
         [SerializeField]
         private FeelingManager _FeelingManager = new FeelingManager();
-
-        private List<Activity> _Activities = new List<Activity>();
+        private ActivityManager _ActivityManager;
 
         protected void Start()
         {
@@ -61,6 +56,7 @@ namespace Librarian
             _FeelingReactions[(int)Feeling.Fresh] = TirednessReaction;
 
             _FeelingManager.Init(StartingFeelings);
+            _ActivityManager = new ActivityManager(this);
         }
 
         private void Update()
@@ -71,22 +67,7 @@ namespace Librarian
 
             EvaluateFeelings();
 
-            if (_CurrentState == State.Walk)
-            {
-                Vector3 direction = Target.transform.position - transform.position;
-                if (direction.sqrMagnitude < 1.0f)
-                {
-                    Target.Activate(this);
-                    _CurrentState = State.Idle;
-                }
-                else
-                {
-                    direction.Normalize();
-                    Vector3 velocity = direction * WalkSpeed;
-                    velocity *= Time.deltaTime;
-                    transform.position += velocity;
-                }
-            }
+            _ActivityManager.Update();
 
             // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
@@ -94,16 +75,6 @@ namespace Librarian
             float fresh = _FeelingManager.GetFeeling(Feeling.Fresh);
 
             Stats.text = "FUN: " + fun + "\nCALM: " + calm + "\nFRESH: " + fresh;
-            
-            if (Input.GetKeyUp(KeyCode.Space) && DebugItem)
-            {
-                DebugItem.Activate(this);
-            }
-            if (Input.GetKeyUp(KeyCode.Return))
-            {
-                DropItem();
-            }
-
         }
 
         private void EvaluateFeelings()
@@ -138,26 +109,6 @@ namespace Librarian
             behaviorAction.Induce();
         }
 
-        public bool PickItem(PickupableItem item)
-        {
-            if (item == null || _Inventory != null) return false;
-
-            _Inventory = item;
-            _Inventory.Despawn();
-            
-            return true;
-        }
-
-        public bool DropItem()
-        {
-            if (_Inventory == null) return false;
-
-            _Inventory.Spawn(DebugItemBodyPrefab, transform.position);
-            _Inventory = null;
-
-            return true;
-        }
-
         private void OnDestroy()
         {
             if(_EvaluateCooldownCoroutine != null) StopCoroutine(_EvaluateCooldownCoroutine);
@@ -170,33 +121,11 @@ namespace Librarian
             _CanEvaluate = true;
         }
 
-        public void AddActivity(Activity activity)
+        public bool AddActivity(Activity activity)
         {
-            if (activity == null) return;
+            if (activity == null) return false;
 
-            _Activities.Add(activity);
-        }
-
-        // Activities
-
-        public void GoToTarget(InteractableBody target)
-        {
-            Target = target;
-            if (Target != null) _CurrentState = State.Walk;
-        }
-
-        public bool ActivateTarget(InteractableBody target)
-        {
-            if (target) return target.Activate(this);
-
-            return false;
-        }
-
-        public bool DeactivateTarget(InteractableBody target)
-        {
-            if (target) return target.Deactivate(this);
-
-            return false;
+            return _ActivityManager.AddActivity(activity);
         }
 
     }

@@ -11,9 +11,9 @@ namespace Librarian
             _Activity = activity;
         }
 
-        public override bool Begin(Character character, Action onActivityEnd)
+        public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
         {
-            character.GoToTarget(_Activity.Target);
+            activityManager.GoToTarget(_Activity.Target);
             return true;
         }
 

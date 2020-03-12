@@ -2,18 +2,18 @@
 
 namespace Librarian
 {
-    public class DeactivateTargetActivity : Activity
+    public class PickUpActivity : Activity
     {
-        public FindTargetActivity _Activity;
+        private PickupableItem _Item;
 
-        public DeactivateTargetActivity(FindTargetActivity activity)
+        public PickUpActivity(PickupableItem item)
         {
-            _Activity = activity;
+            _Item = item;
         }
 
         public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
         {
-            return activityManager.DeactivateTarget(_Activity.Target);
+            return activityManager.PickItem(_Item);
         }
 
         public override bool End()
