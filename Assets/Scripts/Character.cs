@@ -109,11 +109,5 @@ namespace Librarian
             _CanEvaluate = true;
         }
 
-        public bool React(Feeling feeling)
-        {
-            _ReactionManager.React(feeling);
-            return false;
-        }
-
     }
 }
