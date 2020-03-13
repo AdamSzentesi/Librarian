@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Librarian
@@ -30,19 +29,14 @@ namespace Librarian
         public StateBehavior RunBehavior;
         public StateBehavior SitBehavior;
 
-        private FeelingReaction[] _FeelingReactions = new FeelingReaction[Enum.GetNames(typeof(Feeling)).Length];
-        public FeelingReaction BoredomReaction;
-        public FeelingReaction FearReaction;
-        public FeelingReaction TirednessReaction;
-
         private bool _CanEvaluate = true;
         private Coroutine _EvaluateCooldownCoroutine;
 
         public Feelings StartingFeelings;
 
         [SerializeField]
-        private FeelingManager _FeelingManager = new FeelingManager();
-        private ActivityManager _ActivityManager;
+        private FeelingManager _FeelingManager;
+        private ReactionManager _ReactionManager;
 
         protected void Start()
         {
@@ -51,12 +45,14 @@ namespace Librarian
             _StateBehaviors[(int)State.Run] = RunBehavior;
             _StateBehaviors[(int)State.Sit] = SitBehavior;
 
-            _FeelingReactions[(int)Feeling.Fun] = BoredomReaction;
-            _FeelingReactions[(int)Feeling.Calm] = FearReaction;
-            _FeelingReactions[(int)Feeling.Fresh] = TirednessReaction;
+            // SETUP FEELINGS
+            _FeelingManager = new FeelingManager(StartingFeelings);
 
-            _FeelingManager.Init(StartingFeelings);
-            _ActivityManager = new ActivityManager(this);
+            // SETUP REACTIONS
+            Reaction[] defaultReactions = new Reaction[Enum.GetValues(typeof(Feeling)).Length];
+            defaultReactions[(int)Feeling.Fun] = new NoFunReaction();
+            // TODO: other reactions
+            _ReactionManager = new ReactionManager(defaultReactions);
         }
 
         private void Update()
@@ -67,7 +63,7 @@ namespace Librarian
 
             EvaluateFeelings();
 
-            _ActivityManager.Update();
+            //_ActivityManager.Update();
 
             // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
@@ -86,19 +82,11 @@ namespace Librarian
                 Feeling result;
                 if (_FeelingManager.EvaluateFeelings(out result))
                 {
-                    React(result);
+                    _ReactionManager.React(result);
                 }
 
                 _EvaluateCooldownCoroutine = StartCoroutine(EvaluateCooldown());
             }
-        }
-
-        private void React(Feeling feeling)
-        {
-            FeelingReaction feelingReaction = _FeelingReactions[(int)feeling];
-            if (feelingReaction == null) return;
-
-            feelingReaction.Induce(this);
         }
 
         public void InduceStateBehavior(State behavior)
@@ -121,11 +109,10 @@ namespace Librarian
             _CanEvaluate = true;
         }
 
-        public bool AddActivity(Activity activity)
+        public bool React(Feeling feeling)
         {
-            if (activity == null) return false;
-
-            return _ActivityManager.AddActivity(activity);
+            _ReactionManager.React(feeling);
+            return false;
         }
 
     }

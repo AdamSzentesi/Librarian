@@ -2,7 +2,7 @@
 
 namespace Librarian
 {
-    public abstract class FeelingReaction : MonoBehaviour
+    public abstract class ReactionPod : MonoBehaviour
     {
         public bool IsRunning { get; protected set; } = false;
 

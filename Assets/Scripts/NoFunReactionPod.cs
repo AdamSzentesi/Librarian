@@ -2,7 +2,7 @@
 
 namespace Librarian
 {
-    public class FeelingReactionBoredom : FeelingReaction
+    public class NoFunReactionPod : ReactionPod
     {
         protected override bool InduceInternal(Character character)
         {

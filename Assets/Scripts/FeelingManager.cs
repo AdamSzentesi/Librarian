@@ -33,7 +33,7 @@ namespace Librarian
         private int[] _OrderSorted;
         private float[] _Rates;
 
-        public void Init(Feelings feelings)
+        public FeelingManager(Feelings feelings)
         {
             FeelingsCount = Enum.GetNames(typeof(Feeling)).Length;
 
