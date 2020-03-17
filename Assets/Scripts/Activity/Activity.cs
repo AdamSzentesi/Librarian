@@ -54,10 +54,10 @@ namespace Librarian
 
             if (_OnActivityEnd != null) _OnActivityEnd.Invoke();
 
-            return EndInternal(activityManager);
+            return EndInternal();
         }
 
-        public abstract bool EndInternal(ActivityManager activityManager);
+        public abstract bool EndInternal();
 
     }
 }

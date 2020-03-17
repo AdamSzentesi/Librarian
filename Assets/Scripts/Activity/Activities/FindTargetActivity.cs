@@ -13,11 +13,11 @@ namespace Librarian
 
         public override bool BeginInternal(ActivityManager activityManager)
         {
-            InteractableBody Target = Level.GetNearestInteractableBody(activityManager.Position, _FeelingInvolved);
+            InteractableBody Target = Level.GetNearestInteractableBody(activityManager.Position, FeelingInvolved);
             return Target;
         }
 
-        public override bool EndInternal(ActivityManager activityManager)
+        public override bool EndInternal()
         {
             throw new NotImplementedException();
         }

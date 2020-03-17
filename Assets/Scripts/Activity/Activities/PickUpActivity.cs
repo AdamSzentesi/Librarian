@@ -11,12 +11,12 @@ namespace Librarian
             _Item = item;
         }
 
-        public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
+        public override bool BeginInternal(ActivityManager activityManager)
         {
             return activityManager.PickItem(_Item);
         }
 
-        public override bool End()
+        public override bool EndInternal()
         {
             throw new NotImplementedException();
         }

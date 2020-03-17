@@ -16,7 +16,7 @@ namespace Librarian
             return activityManager.ActivateTarget(_Activity.Target);
         }
 
-        public override bool EndInternal(ActivityManager activityManager)
+        public override bool EndInternal()
         {
             throw new NotImplementedException();
         }

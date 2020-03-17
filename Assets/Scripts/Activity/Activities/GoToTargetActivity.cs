@@ -17,7 +17,7 @@ namespace Librarian
             return true;
         }
 
-        public override bool EndInternal(ActivityManager activityManager)
+        public override bool EndInternal()
         {
             throw new NotImplementedException();
         }
