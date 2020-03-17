@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Librarian
+﻿namespace Librarian
 {
-    public class PickUpActivity : Activity
+    public class PickUpActivity : ActivityOnce
     {
         private PickupableItem _Item;
 
@@ -11,14 +9,10 @@ namespace Librarian
             _Item = item;
         }
 
-        public override bool BeginInternal(ActivityManager activityManager)
+        public override void BeginImpl()
         {
-            return activityManager.PickItem(_Item);
+            ActivityManager.PickItem(_Item);
         }
 
-        public override bool EndInternal()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

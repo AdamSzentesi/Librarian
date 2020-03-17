@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Librarian
+﻿namespace Librarian
 {
-    public class DeactivateTargetActivity : Activity
+    public class DeactivateTargetActivity : ActivityOnce
     {
         public FindTargetActivity _Activity;
 
@@ -11,14 +9,10 @@ namespace Librarian
             _Activity = activity;
         }
 
-        public override bool BeginInternal(ActivityManager activityManager)
+        public override void BeginImpl()
         {
-            return activityManager.DeactivateTarget(_Activity.Target);
+            ActivityManager.DeactivateTarget(_Activity.Target);
         }
 
-        public override bool EndInternal()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

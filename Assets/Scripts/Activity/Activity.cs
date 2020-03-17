@@ -21,6 +21,7 @@ namespace Librarian
         
         private Action _OnActivityEnd;
         public bool IsInProgress { get; protected set; } = false;
+        protected ActivityManager ActivityManager { get; private set; }
 
         public Activity()
         {
@@ -31,33 +32,37 @@ namespace Librarian
             FeelingInvolved = feelingInvolved;
         }
 
-        public bool Begin(ActivityManager activityManager, Action onActivityEnd)
+        public void Start(ActivityManager activityManager, Action onActivityEnd)
         {
+            ActivityManager = activityManager;
+
             if (IsFeelingInvolved)
             {
-                activityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
+                ActivityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
             }
 
             _OnActivityEnd = onActivityEnd;
 
-            return BeginInternal(activityManager);
+            BeginInternal();
+            IsInProgress = true;
         }
 
-        public abstract bool BeginInternal(ActivityManager activityManager);
+        protected abstract void BeginInternal();
 
-        public bool End(ActivityManager activityManager)
+        public abstract void Stop();
+
+        protected void Finish()
         {
             if (IsFeelingInvolved)
             {
-                activityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
+                ActivityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
             }
 
             if (_OnActivityEnd != null) _OnActivityEnd.Invoke();
+            _OnActivityEnd = null;
 
-            return EndInternal();
+            IsInProgress = false;
         }
-
-        public abstract bool EndInternal();
 
     }
 }

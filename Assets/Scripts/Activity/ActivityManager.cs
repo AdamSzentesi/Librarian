@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace Librarian
         {
             if (_Activities.Count > 0)
             {
-                _Activities[0].Begin(this, null);
+                _Activities[0].Start(this, null);
             }
 
 
@@ -111,5 +112,26 @@ namespace Librarian
             _FeelingsBeingInvolved[(int)feeling] = status;
         }
 
+        private List<ActivityList> _ActivityLists = new List<ActivityList>();
+        public void AddActivityList(ActivityList activityList)
+        {
+            if (activityList == null) return;
+            
+            Debug.Log("ActivityManager: AddActivityList");
+
+            _ActivityLists.Add(activityList);
+            activityList.Start(this);
+        }
+
+        public Coroutine StartCoroutine(IEnumerator coroutine)
+        {
+            return _Character.StartCoroutine(coroutine);
+        }
+
+        public void StopCoroutine(Coroutine coroutine)
+        {
+            _Character.StopCoroutine(coroutine);
+        }
+        
     }
 }

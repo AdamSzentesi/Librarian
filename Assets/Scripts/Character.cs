@@ -37,6 +37,7 @@ namespace Librarian
         [SerializeField]
         private FeelingManager _FeelingManager;
         private ReactionManager _ReactionManager;
+        private ActivityManager _ActivityManager;
 
         protected void Start()
         {
@@ -50,6 +51,9 @@ namespace Librarian
 
             // SETUP REACTIONS
             _ReactionManager = new ReactionManager();
+
+            // SETUP ACTIVITIES
+            _ActivityManager = new ActivityManager(this);
         }
 
         private void Update()
@@ -79,7 +83,15 @@ namespace Librarian
                 Feeling result;
                 if (_FeelingManager.EvaluateFeelings(out result))
                 {
-                    _ReactionManager.React(result);
+                    //_ReactionManager.React(result);
+
+                    // DEBUG
+                    ActivityList debugActivityList = new ActivityList();
+                    FindTargetActivity find = new FindTargetActivity(result);
+                    debugActivityList.AddActivity(find);
+                    debugActivityList.AddActivity(new GoToTargetActivity(find));
+                    debugActivityList.AddActivity(new ActivateTargetActivity(find));
+                    _ActivityManager.AddActivityList(debugActivityList);
                 }
 
                 _EvaluateCooldownCoroutine = StartCoroutine(EvaluateCooldown());

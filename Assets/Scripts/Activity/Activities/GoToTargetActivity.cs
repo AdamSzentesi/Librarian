@@ -1,25 +1,40 @@
 ﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Librarian
 {
-    public class GoToTargetActivity : Activity
+    public class GoToTargetActivity : ActivityContinuous
     {
         public FindTargetActivity _Activity;
+
+        private Coroutine DebugCor;
 
         public GoToTargetActivity(FindTargetActivity activity)
         {
             _Activity = activity;
         }
 
-        public override bool BeginInternal(ActivityManager activityManager)
+        protected override void BeginInternal()
         {
-            activityManager.GoToTarget(_Activity.Target);
-            return true;
+            ActivityManager.GoToTarget(_Activity.Target);
+            DebugCor = ActivityManager.StartCoroutine(cor());
         }
 
-        public override bool EndInternal()
+        public override void Stop()
+        {
+            //if(DebugCor != null) activityManager.StopCoroutine(DebugCor);
+        }
+
+        protected override void EndInternal()
         {
             throw new NotImplementedException();
+        }
+
+        private IEnumerator cor()
+        {
+            yield return new WaitForSecondsRealtime(5.0f);
+            End();
         }
     }
 }
