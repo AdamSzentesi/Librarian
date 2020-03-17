@@ -30,7 +30,8 @@ namespace Librarian
             Deactivate(character);
 
             PickUpActivity activity = new PickUpActivity(_PickupableItem);
-            return character.AddActivity(activity);
+            //return character.AddActivity(activity);
+            return true;
         }
 
         public sealed override bool Deactivate(Character character)

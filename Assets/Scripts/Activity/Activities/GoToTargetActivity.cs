@@ -11,13 +11,13 @@ namespace Librarian
             _Activity = activity;
         }
 
-        public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
+        public override bool BeginInternal(ActivityManager activityManager)
         {
             activityManager.GoToTarget(_Activity.Target);
             return true;
         }
 
-        public override bool End()
+        public override bool EndInternal(ActivityManager activityManager)
         {
             throw new NotImplementedException();
         }

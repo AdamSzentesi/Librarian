@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Librarian
@@ -102,6 +103,12 @@ namespace Librarian
             _Inventory = null;
 
             return true;
+        }
+
+        private bool[] _FeelingsBeingInvolved = new bool[Enum.GetValues(typeof(Feeling)).Length];
+        public void ToggleFeelingBeingInvolved(Feeling feeling, bool status)
+        {
+            _FeelingsBeingInvolved[(int)feeling] = status;
         }
 
     }

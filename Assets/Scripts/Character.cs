@@ -49,10 +49,7 @@ namespace Librarian
             _FeelingManager = new FeelingManager(StartingFeelings);
 
             // SETUP REACTIONS
-            Reaction[] defaultReactions = new Reaction[Enum.GetValues(typeof(Feeling)).Length];
-            defaultReactions[(int)Feeling.Fun] = new NoFunReaction();
-            // TODO: other reactions
-            _ReactionManager = new ReactionManager(defaultReactions);
+            _ReactionManager = new ReactionManager();
         }
 
         private void Update()

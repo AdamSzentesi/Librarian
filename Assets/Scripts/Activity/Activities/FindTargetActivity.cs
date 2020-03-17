@@ -4,21 +4,20 @@ namespace Librarian
 {
     public class FindTargetActivity : Activity
     {
-        private Feeling _FeelingInvolved;
         public InteractableBody Target { get; private set; }
 
         public FindTargetActivity(Feeling feelingInvolved)
         {
-            _FeelingInvolved = feelingInvolved;
+            FeelingInvolved = feelingInvolved;
         }
 
-        public override bool Begin(ActivityManager activityManager, Action onActivityEnd)
+        public override bool BeginInternal(ActivityManager activityManager)
         {
             InteractableBody Target = Level.GetNearestInteractableBody(activityManager.Position, _FeelingInvolved);
             return Target;
         }
 
-        public override bool End()
+        public override bool EndInternal(ActivityManager activityManager)
         {
             throw new NotImplementedException();
         }
