@@ -23,14 +23,18 @@ namespace Librarian
             base.Init(item);
         }
 
-        public sealed override bool Activate(Character character)
+        public sealed override bool Activate(ActivityManager activityManager, ActivityList activityList)
         {
-            if (!character) return false;
+            Debug.Log("+++ ACT " + this + " " + activityManager);
+            if (activityManager == null) return false;
             
-            Deactivate(character);
+            //Deactivate(activityManager);
 
-            PickUpActivity activity = new PickUpActivity(_PickupableItem);
-            //return character.AddActivity(activity);
+            activityList.AddActivity(new PickUpActivity(_PickupableItem));
+
+            //activityManager.add
+            //return character.add(activity);
+
             return true;
         }
 

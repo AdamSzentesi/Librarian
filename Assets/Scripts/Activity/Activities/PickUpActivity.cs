@@ -9,9 +9,9 @@
             _Item = item;
         }
 
-        public override void BeginImpl()
+        public override void StartActivity()
         {
-            ActivityManager.PickItem(_Item);
+            OwnerActivityManager.PickItem(_Item);
         }
 
     }

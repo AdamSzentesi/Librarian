@@ -2,17 +2,15 @@
 {
     public abstract class ActivityOnce : Activity
     {
-        protected override void BeginInternal()
+        protected override sealed void StartInternal()
         {
-            BeginImpl();
+            StartActivity();
             Finish();
         }
 
-        public abstract void BeginImpl();
+        public abstract void StartActivity();
 
-        public override void Stop()
-        {
-        }
+        public override sealed void ForceFinish() {}
 
     }
 }

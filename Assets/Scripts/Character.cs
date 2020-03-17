@@ -54,6 +54,14 @@ namespace Librarian
 
             // SETUP ACTIVITIES
             _ActivityManager = new ActivityManager(this);
+
+            // DEBUG
+            ActivityList debugActivityList = new ActivityList();
+            FindTargetActivity find = new FindTargetActivity(Feeling.Fun);
+            debugActivityList.AddActivity(find);
+            debugActivityList.AddActivity(new GoToTargetActivity(find));
+            debugActivityList.AddActivity(new ActivateTargetActivity(find));
+            _ActivityManager.AddActivityList(debugActivityList);
         }
 
         private void Update()
@@ -64,7 +72,7 @@ namespace Librarian
 
             EvaluateFeelings();
 
-            //_ActivityManager.Update();
+            _ActivityManager.Update();
 
             // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
@@ -84,14 +92,6 @@ namespace Librarian
                 if (_FeelingManager.EvaluateFeelings(out result))
                 {
                     //_ReactionManager.React(result);
-
-                    // DEBUG
-                    ActivityList debugActivityList = new ActivityList();
-                    FindTargetActivity find = new FindTargetActivity(result);
-                    debugActivityList.AddActivity(find);
-                    debugActivityList.AddActivity(new GoToTargetActivity(find));
-                    debugActivityList.AddActivity(new ActivateTargetActivity(find));
-                    _ActivityManager.AddActivityList(debugActivityList);
                 }
 
                 _EvaluateCooldownCoroutine = StartCoroutine(EvaluateCooldown());

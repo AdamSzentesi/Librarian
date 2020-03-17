@@ -72,24 +72,50 @@ namespace Librarian
         {
             if (_Instance._Interactables.Count == 0) return null;
 
-            InteractableBody nearestBody = _Instance._Interactables[0];
-            if (_Instance._Interactables.Count == 1) return nearestBody;
+            InteractableBody nearestBody = null;
 
-            float smallestDistanceSquared = (characterPosition - nearestBody.transform.position).sqrMagnitude;
-            foreach (InteractableBody currentBody in _Instance._Interactables)
+            int maxIndex = _Instance._Interactables.Count - 1;
+            int j = maxIndex;
+
+            for (int i = 0; i < _Instance._Interactables.Count; i++)
             {
-                float currentDistanceSquared = (characterPosition - currentBody.transform.position).sqrMagnitude;
-                if (currentDistanceSquared < smallestDistanceSquared)
+                if (HasPositiveFeelingBonus(feelingBonus, _Instance._Interactables[i]))
                 {
-                    if (currentBody.GetBonus(feelingBonus) > 0)
+                    nearestBody = _Instance._Interactables[i];
+                    j = i;
+                    break;
+                }
+            }
+
+            if (j == maxIndex)
+            {
+                return nearestBody;
+            }
+
+            float nearestDistanceSquared = (characterPosition - nearestBody.transform.position).sqrMagnitude;
+
+            for (int i = j + 1; i < _Instance._Interactables.Count; i++)
+            {
+                InteractableBody currentBody = _Instance._Interactables[i];
+
+                float currentDistanceSquared = (characterPosition - currentBody.transform.position).sqrMagnitude;
+
+                if (currentDistanceSquared < nearestDistanceSquared)
+                {
+                    if (HasPositiveFeelingBonus(feelingBonus, currentBody))
                     {
-                        smallestDistanceSquared = currentDistanceSquared;
+                        nearestDistanceSquared = currentDistanceSquared;
                         nearestBody = currentBody;
                     }
                 }
             }
 
             return nearestBody;
+        }
+
+        private static bool HasPositiveFeelingBonus(Feeling feeling, InteractableBody body)
+        {
+            return (body.GetBonus(feeling) > 0);
         }
 
     }

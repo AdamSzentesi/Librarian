@@ -22,19 +22,20 @@ namespace Librarian
 
         public void Update()
         {
+            /*
             if (_Activities.Count > 0)
             {
                 _Activities[0].Start(this, null);
             }
+            */
 
-
-            /*
             if (_CurrentState == State.Walk)
             {
                 Vector3 direction = Target.transform.position - Position;
                 if (direction.sqrMagnitude < 1.0f)
                 {
-                    Target.Activate(_Character);
+                    TargetReached();
+                    //Target.Activate(_Character);
                     _CurrentState = State.Idle;
                 }
                 else
@@ -46,6 +47,7 @@ namespace Librarian
                 }
             }
 
+            /*
             if (Input.GetKeyUp(KeyCode.Space) && _Character.DebugItem)
             {
                 _Character.DebugItem.Activate(_Character);
@@ -66,15 +68,31 @@ namespace Librarian
 
         // ACTIVITIES
 
-        public void GoToTarget(InteractableBody target)
+        private Action _OnTargetReached;
+        private void TargetReached()
         {
-            Target = target;
-            if (target != null) _CurrentState = State.Walk;
+            if (_OnTargetReached != null)
+            {
+                _OnTargetReached.Invoke();
+            }
         }
 
-        public bool ActivateTarget(InteractableBody target)
+        public void GoToTarget(InteractableBody target, Action onTargetReached)
         {
-            if (target) return target.Activate(_Character);
+            Debug.Log("GoToTarget " + target);
+            Target = target;
+
+            if (Target != null)
+            {
+                _OnTargetReached += onTargetReached;
+                _CurrentState = State.Walk;
+            }
+        }
+
+        public bool ActivateTarget(InteractableBody target, ActivityList activityList)
+        {
+            Debug.Log("ActivateTarget " + target);
+            if (target) return target.Activate(this, activityList);
 
             return false;
         }
@@ -130,7 +148,10 @@ namespace Librarian
 
         public void StopCoroutine(Coroutine coroutine)
         {
-            _Character.StopCoroutine(coroutine);
+            if (coroutine != null)
+            {
+                _Character.StopCoroutine(coroutine);
+            }
         }
         
     }

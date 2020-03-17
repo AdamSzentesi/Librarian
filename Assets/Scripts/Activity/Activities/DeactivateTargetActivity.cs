@@ -9,9 +9,9 @@
             _Activity = activity;
         }
 
-        public override void BeginImpl()
+        public override void StartActivity()
         {
-            ActivityManager.DeactivateTarget(_Activity.Target);
+            OwnerActivityManager.DeactivateTarget(_Activity.Target);
         }
 
     }

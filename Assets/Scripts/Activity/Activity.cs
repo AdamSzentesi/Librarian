@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Librarian
 {
@@ -21,45 +22,40 @@ namespace Librarian
         
         private Action _OnActivityEnd;
         public bool IsInProgress { get; protected set; } = false;
-        protected ActivityManager ActivityManager { get; private set; }
+        protected ActivityManager OwnerActivityManager { get { return OwnerActivityList.ActivityManager; } }
+        protected ActivityList OwnerActivityList { get; private set; }
 
-        public Activity()
-        {
-        }
+        public Activity() {}
 
         public Activity(Feeling feelingInvolved)
         {
             FeelingInvolved = feelingInvolved;
         }
 
-        public void Start(ActivityManager activityManager, Action onActivityEnd)
+        public void Start(ActivityList activityList, Action onActivityEnd)
         {
-            ActivityManager = activityManager;
+            Debug.Log(" Activity.Start " + this);
 
-            if (IsFeelingInvolved)
-            {
-                ActivityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
-            }
-
+            OwnerActivityList = activityList;
             _OnActivityEnd = onActivityEnd;
 
-            BeginInternal();
+            StartInternal();
             IsInProgress = true;
         }
 
-        protected abstract void BeginInternal();
+        protected abstract void StartInternal();
 
-        public abstract void Stop();
+        public abstract void ForceFinish();
 
         protected void Finish()
         {
-            if (IsFeelingInvolved)
-            {
-                ActivityManager.ToggleFeelingBeingInvolved(FeelingInvolved, true);
-            }
+            Debug.Log(" Activity.Finish " + this);
 
-            if (_OnActivityEnd != null) _OnActivityEnd.Invoke();
-            _OnActivityEnd = null;
+            if (_OnActivityEnd != null)
+            {
+                _OnActivityEnd.Invoke();
+                _OnActivityEnd = null;
+            }
 
             IsInProgress = false;
         }

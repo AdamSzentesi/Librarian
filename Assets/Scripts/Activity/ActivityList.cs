@@ -7,7 +7,7 @@ namespace Librarian
     {
         private Queue<Activity> _Activities = new Queue<Activity>();
         public bool IsRunning { get; private set; } = false;
-        private ActivityManager _ActivityManager;
+        public ActivityManager ActivityManager { get; private set; }
 
         public void AddActivity(Activity activity)
         {
@@ -22,9 +22,9 @@ namespace Librarian
             if (IsRunning) return;
             if (activityManager == null) return;
 
-            Debug.Log("ActivityList: Start");
+            Debug.Log("ActivityList.Start");
 
-            _ActivityManager = activityManager;
+            ActivityManager = activityManager;
             IsRunning = true;
             RunNextActivity();
         }
@@ -38,13 +38,13 @@ namespace Librarian
             }
             
             Activity nextActivity = _Activities.Dequeue();
-            nextActivity.Start(_ActivityManager, OnActivityFinished);
+            nextActivity.Start(this, OnActivityFinished);
         }
 
         // forced finish on whole queue
         public void Finish()
         {
-            Debug.Log("ActivityList: Finish");
+            Debug.Log("ActivityList.Finish");
 
             IsRunning = false;
         }

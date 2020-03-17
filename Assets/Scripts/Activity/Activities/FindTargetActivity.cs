@@ -11,9 +11,9 @@ namespace Librarian
             FeelingInvolved = feelingInvolved;
         }
 
-        public override void BeginImpl()
+        public override void StartActivity()
         {
-            Target = Level.GetNearestInteractableBody(ActivityManager.Position, FeelingInvolved);
+            Target = Level.GetNearestInteractableBody(OwnerActivityManager.Position, FeelingInvolved);
         }
 
     }
