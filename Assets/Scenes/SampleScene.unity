@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 78653446}
   - component: {fileID: 78653447}
   - component: {fileID: 78653444}
-  - component: {fileID: 78653448}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -198,26 +197,10 @@ MonoBehaviour:
   WalkBehavior: {fileID: 0}
   RunBehavior: {fileID: 0}
   SitBehavior: {fileID: 11400000, guid: 32031d3a91733f44fb7a74d92fa3efec, type: 2}
-  BoredomReaction: {fileID: 78653448}
-  FearReaction: {fileID: 0}
-  TirednessReaction: {fileID: 0}
-  Target: {fileID: 0}
   StartingFeelings:
     Fun: 0
     Calm: 0
     Fresh: 0
---- !u!114 &78653448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78653443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280b4a85edd62e74995ac833909694c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &312569618
 PrefabInstance:
   m_ObjectHideFlags: 0
