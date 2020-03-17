@@ -89,7 +89,7 @@ namespace Librarian
             }
         }
 
-        public bool ActivateTarget(InteractableBody target, ActivityList activityList)
+        public bool ActivateTarget(InteractableBody target, ActivityListInterface activityList)
         {
             Debug.Log("ActivateTarget " + target);
             if (target) return target.Activate(this, activityList);

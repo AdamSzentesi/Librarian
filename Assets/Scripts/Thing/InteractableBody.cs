@@ -50,7 +50,7 @@ namespace Librarian
             Level.UnregisterInteractable(_RegisteredIndex);
         }
 
-        public virtual bool Activate(ActivityManager activityManager, ActivityList activityList)
+        public virtual bool Activate(ActivityManager activityManager, ActivityListInterface activityList)
         {
             Debug.Log("InteractableBody.Activate: " + _InteractableItem);
             return _InteractableItem.Activate(activityManager, activityList);

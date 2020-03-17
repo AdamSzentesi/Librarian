@@ -23,7 +23,8 @@ namespace Librarian
         private Action _OnActivityEnd;
         public bool IsInProgress { get; protected set; } = false;
         protected ActivityManager OwnerActivityManager { get { return OwnerActivityList.ActivityManager; } }
-        protected ActivityList OwnerActivityList { get; private set; }
+        //protected ActivityList OwnerActivityList { get; private set; }
+        protected ActivityListInterface OwnerActivityListInterface { get; private set; }
 
         public Activity() {}
 
@@ -32,11 +33,11 @@ namespace Librarian
             FeelingInvolved = feelingInvolved;
         }
 
-        public void Start(ActivityList activityList, Action onActivityEnd)
+        public void Start(ActivityListInterface activityListInterface, Action onActivityEnd)
         {
             Debug.Log(" Activity.Start " + this);
 
-            OwnerActivityList = activityList;
+            OwnerActivityListInterface = activityListInterface;
             _OnActivityEnd = onActivityEnd;
 
             StartInternal();

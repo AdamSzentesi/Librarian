@@ -23,7 +23,7 @@ namespace Librarian
             base.Init(item);
         }
 
-        public sealed override bool Activate(ActivityManager activityManager, ActivityList activityList)
+        public sealed override bool Activate(ActivityManager activityManager, ActivityListInterface activityList)
         {
             Debug.Log("+++ ACT " + this + " " + activityManager);
             if (activityManager == null) return false;

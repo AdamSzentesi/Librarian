@@ -55,4 +55,21 @@ namespace Librarian
         }
 
     }
+
+    public class ActivityListInterface
+    {
+        private ActivityManager _ActivityManager;
+
+        ActivityListInterface(ActivityManager activityManager)
+        {
+            _ActivityManager = activityManager;
+        }
+
+        public void AddActivity(Activity activity)
+        {
+            _ActivityManager.AddActivity(activity);
+        }
+
+    }
+
 }
