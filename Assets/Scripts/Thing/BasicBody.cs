@@ -4,6 +4,8 @@ namespace Librarian
 {
     public class BasicBody : MonoBehaviour
     {
+        [Header("BasicBody Settings")]
+
         [SerializeField]
         private Transform _Billboard;
 

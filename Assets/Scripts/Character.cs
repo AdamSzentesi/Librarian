@@ -14,14 +14,17 @@ namespace Librarian
 
     public class Character : BasicBody
     {
+        [Header("Character Settings")]
+
         public PickupableBody DebugItem;
         public GameObject DebugItemBodyPrefab;
 
         public string Name;
         public TextMesh Stats;
-        public float WalkSpeed = 1.0f;
+
+        [SerializeField] private float WalkSpeed = 1.0f;
+
         public float RunSpeed = 4.0f;
-        public SpriteRenderer SpriteRenderer;
 
         private StateBehavior[] _StateBehaviors = new StateBehavior[Enum.GetNames(typeof(State)).Length];
         public StateBehavior IdleBehavior;
@@ -37,7 +40,7 @@ namespace Librarian
         [SerializeField]
         private FeelingManager _FeelingManager;
 
-        public CharacterInteface CharacterInteface { get; private set; }
+        private CharacterInteface CharacterInteface;
 
         protected void Start()
         {
@@ -50,8 +53,7 @@ namespace Librarian
             _FeelingManager = new FeelingManager(StartingFeelings);
 
             // SETUP
-            ActivityManager activityManager = new ActivityManager(this);
-            CharacterInteface = new CharacterInteface(activityManager);
+            CharacterInteface = new CharacterInteface(this);
         }
 
         private void Update()
@@ -62,7 +64,7 @@ namespace Librarian
 
             EvaluateFeelings();
 
-            CharacterInteface.Update();
+            CharacterInteface.Update(WalkSpeed, transform);
 
             // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
@@ -112,12 +114,14 @@ namespace Librarian
 
     public class CharacterInteface
     {
+        private Character _Character;
         private ActivityManager _ActivityManager;
-        public Vector3 Position { get { return _ActivityManager.Position; } }
+        public Vector3 Position { get { return _Character.transform.position; } }
 
-        public CharacterInteface(ActivityManager activityManager)
+        public CharacterInteface(Character character)
         {
-            _ActivityManager = activityManager;
+            _Character = character;
+            _ActivityManager = new ActivityManager();
 
             // DEBUG
             ActivityList debugActivityList = new ActivityList();
@@ -128,9 +132,9 @@ namespace Librarian
             _ActivityManager.AddActivityList(debugActivityList, this);
         }
 
-        public void Update()
+        public void Update(float walkSpeed, Transform transform)
         {
-            _ActivityManager.Update();
+            _ActivityManager.Update(walkSpeed, transform);
         }
 
         // ACTIVITIES
@@ -147,7 +151,7 @@ namespace Librarian
 
         public bool DeactivateTarget(InteractableBody target)
         {
-            return _ActivityManager.DeactivateTarget(target);
+            return _ActivityManager.DeactivateTarget(target, _Character);
         }
 
         public void GoToTarget(InteractableBody target, Action onTargetReached)
@@ -160,14 +164,19 @@ namespace Librarian
             return _ActivityManager.PickItem(item);
         }
 
+        public bool DropItem()
+        {
+            return _ActivityManager.DropItem(_Character.DebugItemBodyPrefab, Position);
+        }
+
         public Coroutine StartCoroutine(IEnumerator coroutine)
         {
-            return _ActivityManager.StartCoroutine(coroutine);
+            return _Character.StartCoroutine(coroutine);
         }
 
         public void StopCoroutine(Coroutine coroutine)
         {
-            _ActivityManager.StopCoroutine(coroutine);
+            _Character.StopCoroutine(coroutine);
         }
 
     }

@@ -7,20 +7,13 @@ namespace Librarian
 {
     public class ActivityManager
     {
-        private Character _Character;
         private PickupableItem _Inventory;
         private State _CurrentState;
 
         public InteractableBody Target;
-        public Vector3 Position { get { return _Character.transform.position; } }
         private List<ActivityList> _ActivityLists = new List<ActivityList>();
 
-        public ActivityManager(Character character)
-        {
-            _Character = character;
-        }
-
-        public void Update()
+        public void Update(float walkSpeed, Transform transform)
         {
             /*
             if (_Activities.Count > 0)
@@ -31,7 +24,7 @@ namespace Librarian
 
             if (_CurrentState == State.Walk)
             {
-                Vector3 direction = Target.transform.position - Position;
+                Vector3 direction = Target.transform.position - transform.position;
                 if (direction.sqrMagnitude < 1.0f)
                 {
                     TargetReached();
@@ -41,9 +34,9 @@ namespace Librarian
                 else
                 {
                     direction.Normalize();
-                    Vector3 velocity = direction * _Character.WalkSpeed;
+                    Vector3 velocity = direction * walkSpeed;
                     velocity *= Time.deltaTime;
-                    _Character.transform.position += velocity;
+                    transform.position += velocity;
                 }
             }
 
@@ -77,19 +70,6 @@ namespace Librarian
             _ActivityLists[activityListIndex].AddActivity(activity);
         }
 
-        public Coroutine StartCoroutine(IEnumerator coroutine)
-        {
-            return _Character.StartCoroutine(coroutine);
-        }
-
-        public void StopCoroutine(Coroutine coroutine)
-        {
-            if (coroutine != null)
-            {
-                _Character.StopCoroutine(coroutine);
-            }
-        }
-
         // ACTIVITIES
 
         private Action _OnTargetReached;
@@ -120,9 +100,9 @@ namespace Librarian
             return false;
         }
 
-        public bool DeactivateTarget(InteractableBody target)
+        public bool DeactivateTarget(InteractableBody target, Character character)
         {
-            if (target) return target.Deactivate(_Character);
+            if (target) return target.Deactivate(character);
 
             return false;
         }
@@ -137,11 +117,11 @@ namespace Librarian
             return true;
         }
 
-        public bool DropItem()
+        public bool DropItem(GameObject prefab, Vector3 position)
         {
             if (_Inventory == null) return false;
 
-            _Inventory.Spawn(_Character.DebugItemBodyPrefab, Position);
+            _Inventory.Spawn(prefab, position);
             _Inventory = null;
 
             return true;
