@@ -22,12 +22,12 @@ namespace Librarian
 
         protected Coroutine StartCoroutine(IEnumerator coroutine)
         {
-            return OwnerActivityManager.StartCoroutine(coroutine);
+            return OwnerCharacterInteface.StartCoroutine(coroutine);
         }
 
         protected void StopCoroutine(Coroutine coroutine)
         {
-            OwnerActivityManager.StopCoroutine(coroutine);
+            OwnerCharacterInteface.StopCoroutine(coroutine);
         }
 
     }

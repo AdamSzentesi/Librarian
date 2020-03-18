@@ -11,7 +11,7 @@
 
         public override void StartActivity()
         {
-            OwnerActivityManager.PickItem(_Item);
+            OwnerCharacterInteface.PickItem(_Item);
         }
 
     }

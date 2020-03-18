@@ -7,7 +7,8 @@ namespace Librarian
     {
         private Queue<Activity> _Activities = new Queue<Activity>();
         public bool IsRunning { get; private set; } = false;
-        public ActivityManager ActivityManager { get; private set; }
+        public CharacterInteface CharacterInteface { get; private set; }
+        private int ActivityListIndex;
 
         public void AddActivity(Activity activity)
         {
@@ -17,14 +18,14 @@ namespace Librarian
             }
         }
 
-        public void Start(ActivityManager activityManager)
+        public void Start(CharacterInteface characterInteface, int activityListIndex)
         {
-            if (IsRunning) return;
-            if (activityManager == null) return;
+            if (IsRunning || characterInteface == null) return;
 
             Debug.Log("ActivityList.Start");
 
-            ActivityManager = activityManager;
+            CharacterInteface = characterInteface;
+            ActivityListIndex = activityListIndex;
             IsRunning = true;
             RunNextActivity();
         }
@@ -38,7 +39,7 @@ namespace Librarian
             }
             
             Activity nextActivity = _Activities.Dequeue();
-            nextActivity.Start(this, OnActivityFinished);
+            nextActivity.Start(CharacterInteface, ActivityListIndex, OnActivityFinished);
         }
 
         // forced finish on whole queue
@@ -55,21 +56,4 @@ namespace Librarian
         }
 
     }
-
-    public class ActivityListInterface
-    {
-        private ActivityManager _ActivityManager;
-
-        ActivityListInterface(ActivityManager activityManager)
-        {
-            _ActivityManager = activityManager;
-        }
-
-        public void AddActivity(Activity activity)
-        {
-            _ActivityManager.AddActivity(activity);
-        }
-
-    }
-
 }

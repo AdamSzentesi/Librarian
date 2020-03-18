@@ -15,7 +15,7 @@ namespace Librarian
             _Bonuses[(int)Feeling.Fresh] = seed.FeelingsBonus.Fresh;
         }
 
-        public bool Activate(ActivityManager activityManager, ActivityListInterface activityList)
+        public bool Activate(CharacterInteface characterInterface, int activityListIndex)
         {
             return true;
         }

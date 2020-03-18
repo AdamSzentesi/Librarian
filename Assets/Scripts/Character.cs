@@ -36,8 +36,8 @@ namespace Librarian
 
         [SerializeField]
         private FeelingManager _FeelingManager;
-        private ReactionManager _ReactionManager;
-        private ActivityManager _ActivityManager;
+
+        public CharacterInteface CharacterInteface { get; private set; }
 
         protected void Start()
         {
@@ -49,19 +49,9 @@ namespace Librarian
             // SETUP FEELINGS
             _FeelingManager = new FeelingManager(StartingFeelings);
 
-            // SETUP REACTIONS
-            _ReactionManager = new ReactionManager();
-
-            // SETUP ACTIVITIES
-            _ActivityManager = new ActivityManager(this);
-
-            // DEBUG
-            ActivityList debugActivityList = new ActivityList();
-            FindTargetActivity find = new FindTargetActivity(Feeling.Fun);
-            debugActivityList.AddActivity(find);
-            debugActivityList.AddActivity(new GoToTargetActivity(find));
-            debugActivityList.AddActivity(new ActivateTargetActivity(find));
-            _ActivityManager.AddActivityList(debugActivityList);
+            // SETUP
+            ActivityManager activityManager = new ActivityManager(this);
+            CharacterInteface = new CharacterInteface(activityManager);
         }
 
         private void Update()
@@ -72,7 +62,7 @@ namespace Librarian
 
             EvaluateFeelings();
 
-            _ActivityManager.Update();
+            CharacterInteface.Update();
 
             // DEBUG
             float fun = _FeelingManager.GetFeeling(Feeling.Fun);
@@ -119,4 +109,67 @@ namespace Librarian
         }
 
     }
+
+    public class CharacterInteface
+    {
+        private ActivityManager _ActivityManager;
+        public Vector3 Position { get { return _ActivityManager.Position; } }
+
+        public CharacterInteface(ActivityManager activityManager)
+        {
+            _ActivityManager = activityManager;
+
+            // DEBUG
+            ActivityList debugActivityList = new ActivityList();
+            FindTargetActivity find = new FindTargetActivity(Feeling.Fun);
+            debugActivityList.AddActivity(find);
+            debugActivityList.AddActivity(new GoToTargetActivity(find));
+            debugActivityList.AddActivity(new ActivateTargetActivity(find));
+            _ActivityManager.AddActivityList(debugActivityList, this);
+        }
+
+        public void Update()
+        {
+            _ActivityManager.Update();
+        }
+
+        // ACTIVITIES
+
+        public void AddActivity(Activity activity, int activityListIndex)
+        {
+            _ActivityManager.AddActivity(activity, activityListIndex);
+        }
+
+        public bool ActivateTarget(InteractableBody target, int activityListIndex)
+        {
+            return _ActivityManager.ActivateTarget(target, this, activityListIndex);
+        }
+
+        public bool DeactivateTarget(InteractableBody target)
+        {
+            return _ActivityManager.DeactivateTarget(target);
+        }
+
+        public void GoToTarget(InteractableBody target, Action onTargetReached)
+        {
+            _ActivityManager.GoToTarget(target, onTargetReached);
+        }
+
+        public bool PickItem(PickupableItem item)
+        {
+            return _ActivityManager.PickItem(item);
+        }
+
+        public Coroutine StartCoroutine(IEnumerator coroutine)
+        {
+            return _ActivityManager.StartCoroutine(coroutine);
+        }
+
+        public void StopCoroutine(Coroutine coroutine)
+        {
+            _ActivityManager.StopCoroutine(coroutine);
+        }
+
+    }
+
 }

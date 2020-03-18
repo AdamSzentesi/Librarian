@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Librarian
 {
@@ -13,7 +14,7 @@ namespace Librarian
 
         public override void StartActivity()
         {
-            Target = Level.GetNearestInteractableBody(OwnerActivityManager.Position, FeelingInvolved);
+            Target = Level.GetNearestInteractableBody(OwnerCharacterInteface.Position, FeelingInvolved);
         }
 
     }

@@ -7,13 +7,13 @@ namespace Librarian
 {
     public class ActivityManager
     {
-        private List<Activity> _Activities = new List<Activity>();
         private Character _Character;
         private PickupableItem _Inventory;
         private State _CurrentState;
 
         public InteractableBody Target;
         public Vector3 Position { get { return _Character.transform.position; } }
+        private List<ActivityList> _ActivityLists = new List<ActivityList>();
 
         public ActivityManager(Character character)
         {
@@ -59,11 +59,35 @@ namespace Librarian
             */
         }
 
-        public bool AddActivity(Activity activity)
+        public void AddActivityList(ActivityList activityList, CharacterInteface characterInteface)
         {
-            Debug.Log("ADDING ACTIVITY: " + activity);
-            _Activities.Add(activity);
-            return true;
+            if (activityList == null) return; // TODO: or empty?
+
+            Debug.Log("ActivityManager: AddActivityList");
+
+            int activityListIndex = _ActivityLists.Count;
+            _ActivityLists.Add(activityList);
+            activityList.Start(characterInteface, activityListIndex);
+        }
+
+        public void AddActivity(Activity activity, int activityListIndex)
+        {
+            if (_ActivityLists[activityListIndex] == null) return;
+            
+            _ActivityLists[activityListIndex].AddActivity(activity);
+        }
+
+        public Coroutine StartCoroutine(IEnumerator coroutine)
+        {
+            return _Character.StartCoroutine(coroutine);
+        }
+
+        public void StopCoroutine(Coroutine coroutine)
+        {
+            if (coroutine != null)
+            {
+                _Character.StopCoroutine(coroutine);
+            }
         }
 
         // ACTIVITIES
@@ -79,7 +103,6 @@ namespace Librarian
 
         public void GoToTarget(InteractableBody target, Action onTargetReached)
         {
-            Debug.Log("GoToTarget " + target);
             Target = target;
 
             if (Target != null)
@@ -89,10 +112,10 @@ namespace Librarian
             }
         }
 
-        public bool ActivateTarget(InteractableBody target, ActivityListInterface activityList)
+        public bool ActivateTarget(InteractableBody target, CharacterInteface characterInterface, int activityListIndex)
         {
             Debug.Log("ActivateTarget " + target);
-            if (target) return target.Activate(this, activityList);
+            if (target) return target.Activate(characterInterface, activityListIndex);
 
             return false;
         }
@@ -122,36 +145,6 @@ namespace Librarian
             _Inventory = null;
 
             return true;
-        }
-
-        private bool[] _FeelingsBeingInvolved = new bool[Enum.GetValues(typeof(Feeling)).Length];
-        public void ToggleFeelingBeingInvolved(Feeling feeling, bool status)
-        {
-            _FeelingsBeingInvolved[(int)feeling] = status;
-        }
-
-        private List<ActivityList> _ActivityLists = new List<ActivityList>();
-        public void AddActivityList(ActivityList activityList)
-        {
-            if (activityList == null) return;
-            
-            Debug.Log("ActivityManager: AddActivityList");
-
-            _ActivityLists.Add(activityList);
-            activityList.Start(this);
-        }
-
-        public Coroutine StartCoroutine(IEnumerator coroutine)
-        {
-            return _Character.StartCoroutine(coroutine);
-        }
-
-        public void StopCoroutine(Coroutine coroutine)
-        {
-            if (coroutine != null)
-            {
-                _Character.StopCoroutine(coroutine);
-            }
         }
         
     }

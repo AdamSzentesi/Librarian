@@ -11,7 +11,7 @@
 
         public override void StartActivity()
         {
-            OwnerActivityManager.ActivateTarget(_Activity.Target, OwnerActivityList);
+            OwnerCharacterInteface.ActivateTarget(_Activity.Target, ActivityListIndex);
         }
 
     }

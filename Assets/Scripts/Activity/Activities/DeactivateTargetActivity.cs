@@ -11,7 +11,7 @@
 
         public override void StartActivity()
         {
-            OwnerActivityManager.DeactivateTarget(_Activity.Target);
+            OwnerCharacterInteface.DeactivateTarget(_Activity.Target);
         }
 
     }

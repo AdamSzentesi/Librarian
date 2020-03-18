@@ -50,10 +50,10 @@ namespace Librarian
             Level.UnregisterInteractable(_RegisteredIndex);
         }
 
-        public virtual bool Activate(ActivityManager activityManager, ActivityListInterface activityList)
+        public virtual bool Activate(CharacterInteface characterInterface, int activityListIndex)
         {
             Debug.Log("InteractableBody.Activate: " + _InteractableItem);
-            return _InteractableItem.Activate(activityManager, activityList);
+            return _InteractableItem.Activate(characterInterface, activityListIndex);
         }
         
         public virtual bool Deactivate(Character character)

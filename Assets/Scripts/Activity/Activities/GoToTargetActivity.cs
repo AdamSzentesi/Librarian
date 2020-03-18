@@ -11,7 +11,7 @@
 
         protected override void StartActivity()
         {
-            OwnerActivityManager.GoToTarget(_Activity.Target, OnTargetReached);
+            OwnerCharacterInteface.GoToTarget(_Activity.Target, OnTargetReached);
         }
 
         protected override void ForceFinishActivity()

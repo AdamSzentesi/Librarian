@@ -23,17 +23,13 @@ namespace Librarian
             base.Init(item);
         }
 
-        public sealed override bool Activate(ActivityManager activityManager, ActivityListInterface activityList)
+        public sealed override bool Activate(CharacterInteface characterInterface, int activityListIndex)
         {
-            Debug.Log("+++ ACT " + this + " " + activityManager);
-            if (activityManager == null) return false;
+            if (characterInterface == null) return false;
             
             //Deactivate(activityManager);
 
-            activityList.AddActivity(new PickUpActivity(_PickupableItem));
-
-            //activityManager.add
-            //return character.add(activity);
+            characterInterface.AddActivity(new PickUpActivity(_PickupableItem), activityListIndex);
 
             return true;
         }
