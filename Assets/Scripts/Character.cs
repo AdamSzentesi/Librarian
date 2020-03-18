@@ -83,7 +83,7 @@ namespace Librarian
                 Feeling result;
                 if (_FeelingManager.EvaluateFeelings(out result))
                 {
-                    //_ReactionManager.React(result);
+                    CharacterInteface.React(result);
                 }
 
                 _EvaluateCooldownCoroutine = StartCoroutine(EvaluateCooldown());
@@ -116,13 +116,51 @@ namespace Librarian
     {
         private Character _Character;
         private ActivityManager _ActivityManager;
+        private State _CurrentState;
+        private InteractableBody Target;
+        private Action _OnTargetReached;
         public Vector3 Position { get { return _Character.transform.position; } }
 
         public CharacterInteface(Character character)
         {
             _Character = character;
             _ActivityManager = new ActivityManager();
+        }
 
+        public void Update(float walkSpeed, Transform transform)
+        {
+            if (_CurrentState == State.Walk)
+            {
+                Vector3 direction = Target.transform.position - transform.position;
+                if (direction.sqrMagnitude < 1.0f)
+                {
+                    TargetReached();
+                    //Target.Activate(_Character);
+                    _CurrentState = State.Idle;
+                }
+                else
+                {
+                    direction.Normalize();
+                    Vector3 velocity = direction * walkSpeed;
+                    velocity *= Time.deltaTime;
+                    transform.position += velocity;
+                }
+            }
+
+            /*
+            if (Input.GetKeyUp(KeyCode.Space) && _Character.DebugItem)
+            {
+                _Character.DebugItem.Activate(_Character);
+            }
+            if (Input.GetKeyUp(KeyCode.Return))
+            {
+                DropItem();
+            }
+            */
+        }
+
+        public void React(Feeling feeling)
+        {
             // DEBUG
             ActivityList debugActivityList = new ActivityList();
             FindTargetActivity find = new FindTargetActivity(Feeling.Fun);
@@ -130,11 +168,6 @@ namespace Librarian
             debugActivityList.AddActivity(new GoToTargetActivity(find));
             debugActivityList.AddActivity(new ActivateTargetActivity(find));
             _ActivityManager.AddActivityList(debugActivityList, this);
-        }
-
-        public void Update(float walkSpeed, Transform transform)
-        {
-            _ActivityManager.Update(walkSpeed, transform);
         }
 
         // ACTIVITIES
@@ -156,7 +189,21 @@ namespace Librarian
 
         public void GoToTarget(InteractableBody target, Action onTargetReached)
         {
-            _ActivityManager.GoToTarget(target, onTargetReached);
+            Target = target;
+
+            if (Target != null)
+            {
+                _OnTargetReached += onTargetReached;
+                _CurrentState = State.Walk;
+            }
+        }
+
+        private void TargetReached()
+        {
+            if (_OnTargetReached != null)
+            {
+                _OnTargetReached.Invoke();
+            }
         }
 
         public bool PickItem(PickupableItem item)

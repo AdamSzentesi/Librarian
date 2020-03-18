@@ -8,49 +8,7 @@ namespace Librarian
     public class ActivityManager
     {
         private PickupableItem _Inventory;
-        private State _CurrentState;
-
-        public InteractableBody Target;
         private List<ActivityList> _ActivityLists = new List<ActivityList>();
-
-        public void Update(float walkSpeed, Transform transform)
-        {
-            /*
-            if (_Activities.Count > 0)
-            {
-                _Activities[0].Start(this, null);
-            }
-            */
-
-            if (_CurrentState == State.Walk)
-            {
-                Vector3 direction = Target.transform.position - transform.position;
-                if (direction.sqrMagnitude < 1.0f)
-                {
-                    TargetReached();
-                    //Target.Activate(_Character);
-                    _CurrentState = State.Idle;
-                }
-                else
-                {
-                    direction.Normalize();
-                    Vector3 velocity = direction * walkSpeed;
-                    velocity *= Time.deltaTime;
-                    transform.position += velocity;
-                }
-            }
-
-            /*
-            if (Input.GetKeyUp(KeyCode.Space) && _Character.DebugItem)
-            {
-                _Character.DebugItem.Activate(_Character);
-            }
-            if (Input.GetKeyUp(KeyCode.Return))
-            {
-                DropItem();
-            }
-            */
-        }
 
         public void AddActivityList(ActivityList activityList, CharacterInteface characterInteface)
         {
@@ -71,26 +29,6 @@ namespace Librarian
         }
 
         // ACTIVITIES
-
-        private Action _OnTargetReached;
-        private void TargetReached()
-        {
-            if (_OnTargetReached != null)
-            {
-                _OnTargetReached.Invoke();
-            }
-        }
-
-        public void GoToTarget(InteractableBody target, Action onTargetReached)
-        {
-            Target = target;
-
-            if (Target != null)
-            {
-                _OnTargetReached += onTargetReached;
-                _CurrentState = State.Walk;
-            }
-        }
 
         public bool ActivateTarget(InteractableBody target, CharacterInteface characterInterface, int activityListIndex)
         {
